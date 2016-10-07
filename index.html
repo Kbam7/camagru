@@ -20,6 +20,10 @@
             height: 375px;
             background-color: #666;
         }
+        #canvas {
+           width: 500px;
+           height: 375px;
+        }
         </style>
 
     </head>
@@ -68,6 +72,9 @@
           <video autoplay="true" id="videoElement">
 
           </video>
+          <canvas id="canvas">
+          </canvas>
+          <img id="photo" />
       </div>
 
 
@@ -78,14 +85,33 @@
       </footer>
     </body>
     <script>
-    var video = document.querySelector("#videoElement");
+    var video = document.querySelector("#videoElement"),
+        canvas = document.querySelector("#canvas"),
+        photo = document.querySelector('#photo');
+
+        var width = 500;
+            height = 375;
+/*
+    video.setAttribute('width', width);
+    video.setAttribute('height', height);
+    canvas.setAttribute('width', width);
+    canvas.setAttribute('height', height);
+*/
+
+    video.addEventListener('click', function(){
+      var context = canvas.getContext('2d');
+      context.drawImage(video, 0, 0, width, height);
+
+      var data = canvas.toDataURL('image/png');
+      photo.setAttribute('src', data);
+    });
 
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
     if (navigator.getUserMedia) {
         navigator.getUserMedia({video: true}, handleVideo, videoError);
     }
-     
+
     function handleVideo(stream) {
         video.src = window.URL.createObjectURL(stream);
     }

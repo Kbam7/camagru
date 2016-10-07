@@ -152,7 +152,7 @@ h1 {
  </div>
  <div id="gallery"></div>
 </article>
-<canvas id="photo" style="display:none"></canvas>
+<canvas id="photo" style="display:none;"></canvas>
 <script>
 navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.getUserMedia;
 window.URL = window.URL || window.webkitURL;
@@ -203,11 +203,14 @@ function gotStream(stream) {
     document.getElementById('app').hidden = false;
   };
 
+//  canvas.width = 320;//video.videoWidth;
+//  canvas.height = 320;//video.videoHeight;
+
   // Since video.onloadedmetadata isn't firing for getUserMedia video, we have
   // to fake it.
   setTimeout(function() {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    canvas.width = video.width;//video.videoWidth;
+    canvas.height = video.height;//video.videoHeight;
     document.getElementById('splash').hidden = true;
     document.getElementById('app').hidden = false;
   }, 50);
