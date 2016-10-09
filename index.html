@@ -6,25 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <link rel="stylesheet" href="https://decorator.io/tools/modulr.min.css" />
+        <link rel="stylesheet" href="https://decorator.io/tools/modulr.animation.css" />
+        <link rel="stylesheet" href="https://decorator.io/tools/tooltip.min.css" />
         <link rel="stylesheet" href="css/style.css" />
-
-        <style>
-        #container {
-            margin: 0px auto;
-            width: 500px;
-            height: 375px;
-            border: 10px #333 solid;
-        }
-        #videoElement {
-            width: 500px;
-            height: 375px;
-            background-color: #666;
-        }
-        #canvas {
-           width: 500px;
-           height: 375px;
-        }
-        </style>
+        <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="js/camera.js"></script>
 
     </head>
     <body class="fluid">
@@ -35,11 +21,11 @@
         <form method="post" action="login.php">
           <div class="form-input">
             <label for="login">Username:</label>
-            <input type="text" name="login" id="user-login" value="" />
+            <input type="text" name="login" id="user-login" placeholder="Username" />
           </div>
           <div class="form-input">
-            <label for="user-passwd">Password:</label>
-            <input type="password" name="passwd" id="user-passwd" value="" />
+            <label for="passwd">Password:</label>
+            <input type="password" name="passwd" id="user-passwd" placeholder="Password" />
           </div>
           <div class="form-input">
             <label name="remember" for="remember-user">Remember me</label>
@@ -68,14 +54,45 @@
         </div>
       </section>
 
-      <div id="container">
-          <video autoplay="true" id="videoElement">
+      <section class="col-8 offset-left-2">
+        <video autoplay="true" id="videoStream">
 
-          </video>
-          <canvas id="canvas">
-          </canvas>
-          <img id="photo" />
+        </video>
+        <canvas id="canvas">
+        </canvas>
+      </section>
+
+      <aside id="gallery">
+
+      </aside>
+
+      <!-- Grid Start -->
+      <div class="grid grid-3">
+        <!-- One Grid Item Start -->
+        <div>
+          <!-- Thumbnail Start -->
+          <a href="#" class="thumbnail"><img src="media/1.jpg"></a>
+          <!-- Thumbnail End -->
+          <!-- Title Start -->
+          <div class="title padding -padding-bottom">
+            <a href="#" class="text700">Post Title...</a>
+            <p class="text-small -margin-top">Posted: 2 Hours ago</p>
+          </div>
+          <!-- Title End -->
+          <!-- Meta Start -->
+          <div class="meta padding -padding-top">
+            <div class="col-2 col-persist">
+              <a href="#" class="thumbnail fluid"><img src="media/thumbnail.jpeg"></a>
+            </div>
+            <div class="col-10 col-persist padding-left">
+              <a href="#">Some Dude</a>
+              <p class="text-small -margin">Location: Mars</p>
+            </div>
+          </div>
+        <!-- Meta Start -->
+        </div>
       </div>
+      <!-- Grid End -->
 
 
       <footer>
@@ -84,39 +101,5 @@
         </p>
       </footer>
     </body>
-    <script>
-      var video = document.querySelector("#videoElement"),
-          canvas = document.querySelector("#canvas"),
-          photo = document.querySelector('#photo');
 
-      var width = 500,
-          height = 375;
-
-      video.setAttribute('width', width);
-      video.setAttribute('height', height);
-      canvas.setAttribute('width', width);
-      canvas.setAttribute('height', height);
-
-      video.addEventListener('click', function(){
-        var context = canvas.getContext('2d');
-        context.drawImage(video, 0, 0, width, height);
-
-        var data = canvas.toDataURL('image/png');
-        photo.setAttribute('src', data);
-      });
-
-      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
-
-      if (navigator.getUserMedia) {
-          navigator.getUserMedia({video: true}, handleVideo, videoError);
-      }
-
-      function handleVideo(stream) {
-          video.src = window.URL.createObjectURL(stream);
-      }
-
-      function videoError(e) {
-          // do something
-      }
-    </script>
 </html>
