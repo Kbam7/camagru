@@ -85,39 +85,38 @@
       </footer>
     </body>
     <script>
-    var video = document.querySelector("#videoElement"),
-        canvas = document.querySelector("#canvas"),
-        photo = document.querySelector('#photo');
+      var video = document.querySelector("#videoElement"),
+          canvas = document.querySelector("#canvas"),
+          photo = document.querySelector('#photo');
 
-        var width = 500;
-            height = 375;
-/*
-    video.setAttribute('width', width);
-    video.setAttribute('height', height);
-    canvas.setAttribute('width', width);
-    canvas.setAttribute('height', height);
-*/
+      var width = 500,
+          height = 375;
 
-    video.addEventListener('click', function(){
-      var context = canvas.getContext('2d');
-      context.drawImage(video, 0, 0, width, height);
+      video.setAttribute('width', width);
+      video.setAttribute('height', height);
+      canvas.setAttribute('width', width);
+      canvas.setAttribute('height', height);
 
-      var data = canvas.toDataURL('image/png');
-      photo.setAttribute('src', data);
-    });
+      video.addEventListener('click', function(){
+        var context = canvas.getContext('2d');
+        context.drawImage(video, 0, 0, width, height);
 
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+        var data = canvas.toDataURL('image/png');
+        photo.setAttribute('src', data);
+      });
 
-    if (navigator.getUserMedia) {
-        navigator.getUserMedia({video: true}, handleVideo, videoError);
-    }
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
-    function handleVideo(stream) {
-        video.src = window.URL.createObjectURL(stream);
-    }
+      if (navigator.getUserMedia) {
+          navigator.getUserMedia({video: true}, handleVideo, videoError);
+      }
 
-    function videoError(e) {
-        // do something
-    }
+      function handleVideo(stream) {
+          video.src = window.URL.createObjectURL(stream);
+      }
+
+      function videoError(e) {
+          // do something
+      }
     </script>
 </html>
