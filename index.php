@@ -54,8 +54,4 @@
         </div>
     </section>
 
-<?php include 'video_stream.php'; ?>
-
-<?php include 'gallery.php'; ?>
-
 <?php include 'footer.php'; ?>
