@@ -3,21 +3,14 @@
 
 <head>
     <title>Camagru</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="css/modulr.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <script type="text/javascript" src="js/script.js"></script>
-    <script type="text/javascript" src="js/camera.js"></script>
-
+<?php include './include/header.php'; ?>
 </head>
 
 <body class="fluid">
     <header>
-        <h1>Camagru - <small>Take a photo, have some fun!</small></h1>
+        <h1 class="myclass">Camagru - <small>Take a photo, have some fun!</small></h1>
     </header>
-    <section class="col-5 offset-left-1 login-form ">
+    <section class="col-5 offset-left-1 login-form col">
         <form method="post" action="login.php">
             <div class="form-input">
                 <label for="login">Username:</label>
@@ -54,4 +47,4 @@
         </div>
     </section>
 
-<?php include 'footer.php'; ?>
+<?php include './include/footer.php'; ?>

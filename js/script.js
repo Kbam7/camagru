@@ -1,3 +1,4 @@
+"use strict";
 window.onload = function() {
 
     //  Get input elements and add focus and blur events
@@ -18,7 +19,4 @@ window.onload = function() {
     // Functionality for camera
     activateUsersCamera();
 
-
-
-
-};
+}

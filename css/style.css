@@ -1,101 +1,124 @@
 /* css styles */
+
 body {
-  background-color: #555;
+    background-color: #555;
 }
 
 #videoStream {
     width: 500px;
     height: 375px;
     background-color: #666;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
 }
+
 #canvas {
-   width: 500px;
-   height: 375px;
+    width: 500px;
+    height: 375px;
 }
+
 .gallery-img {
-  width: 500px;
-  height: 375px;
+    width: 500px;
+    height: 375px;
 }
+
 
 /* ------[ FORMS ]------ */
 
+
 /* Place Holder CSS */
+
 ::-webkit-input-placeholder {
-  opacity: 0.5;
-  -webkit-transition: all 0.75s ease-in-out;
-  transition: all 0.75s ease-in-out;
+    opacity: 0.5;
+    -webkit-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
 }
+
 :-moz-placeholder {
-  opacity: 0.5;
-  -moz-transition: all 0.75s ease-in-out;
-  transition: all 0.75s ease-in-out;
+    opacity: 0.5;
+    -moz-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
 }
+
 ::-moz-placeholder {
-  opacity: 0.5;
-  -moz-transition: all 0.75s ease-in-out;
-  transition: all 0.75s ease-in-out;
+    opacity: 0.5;
+    -moz-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
 }
+
 :-ms-input-placeholder {
-  opacity: 0.5;
-  -ms-transition: all 0.75s ease-in-out;
-  transition: all 0.75s ease-in-out;
+    opacity: 0.5;
+    -ms-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
 }
+
 
 /* Place Holder CSS for Hover */
+
 :hover::-webkit-input-placeholder {
-  opacity: 0.25;
-  -webkit-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+    opacity: 0.25;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
+
 :hover:-moz-placeholder {
-  opacity: 0.25;
-  -moz-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+    opacity: 0.25;
+    -moz-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
+
 :hover::-moz-placeholder {
-  opacity: 0.25;
-  -moz-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+    opacity: 0.25;
+    -moz-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
+
 :hover:-ms-input-placeholder {
-  opacity: 0.25;
-  -ms-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+    opacity: 0.25;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
 }
+
 
 /* Place Holder CSS for Focus */
+
 :focus::-webkit-input-placeholder {
-  opacity: 0;
-  -webkit-transition: all 0.75s ease-in-out;
-  transition: all 0.75s ease-in-out;
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-}
-:focus:-moz-placeholder {
-  opacity: 0;
-  -moz-transition: all 0.75s ease-in-out;
-  transition: all 0.75s ease-in-out;
-  -moz-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-}
-:focus::-moz-placeholder {
-  opacity: 0;
-  -moz-transition: all 0.75s ease-in-out;
-  transition: all 0.75s ease-in-out;
-  -moz-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-}
-:focus:-ms-input-placeholder {
-  opacity: 0;
-  -ms-transition: all 0.75s ease-in-out;
-  transition: all 0.75s ease-in-out;
-  -ms-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
+    opacity: 0;
+    -webkit-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
 }
 
+:focus:-moz-placeholder {
+    opacity: 0;
+    -moz-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+    -moz-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+}
+
+:focus::-moz-placeholder {
+    opacity: 0;
+    -moz-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+    -moz-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+}
+
+:focus:-ms-input-placeholder {
+    opacity: 0;
+    -ms-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+    -ms-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+}
+
+
 /* Labels */
+
 label[for=login],
 label[for=passwd] {
-  opacity: 0;
-  color: #fff;
+    opacity: 0;
+    color: #fff;
 }
