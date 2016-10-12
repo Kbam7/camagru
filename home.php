@@ -5,8 +5,8 @@
   </head>
   <body>
     <header>
-      <a href="logout.php">LOGOUT</a>
-      <h1>The hangout</h1>
+      <a href="php/logout.php">LOGOUT</a>
+      <h1>Camagru - <small>Take a photo, have some fun!</small></h1>
     </header>
 
 <?php include './include/video_stream.php'; ?>

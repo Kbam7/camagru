@@ -1,34 +1,27 @@
-<?php
+<!doctype html>
+<html>
+<head>
+    <title>Create Account | Camagru</title>
+<?php include './include/header.php'; ?>
+</head>
+<body>
+    <header class="global-style">
+        <h1><a href="index.php">Create Account</a></h1>
+    </header>
+    <section class="global-style">
+        <form method="post" action="php/create_acc.php">
+            <div class="form-input">
+                <label for="login">Username:</label>
+                <input type="text" name="login" id="user-login" value="" />
+            </div>
+            <div class="form-input">
+                <label for="user-passwd">Password:</label>
+                <input type="password" name="passwd" id="user-passwd" value="" />
+            </div>
+            <div class="form-input">
+                <input type="submit" name="submit" value="OK" />
+            </div>
+        </form>
+    </section>
 
-if ((!$_POST['login'] || !$_POST['passwd']) || $_POST['submit'] !== "OK")
-  echo "ERROR\n";
-else if ($_POST['submit'] === "OK")
-{
-  $flag = 0;
-  $path = "private/";
-  $file = $path."passwd";
-  if (!file_exists($path))
-    mkdir($path, 0777);
-  if (file_exists($file))
-  {
-    $accounts = unserialize(file_get_contents("private/passwd"));
-    foreach ($accounts as $acc) {
-      if ($acc['login'] === $_POST['login']){
-        $flag = 1;
-        echo "ERROR\n";
-        break ;
-      }
-    }
-  }
-  if ($flag == 0){
-    $passwd = hash('whirlpool', $_POST['passwd']);
-    $accounts[] = array('login' => $_POST['login'], 'passwd' => $passwd);
-    if (file_put_contents($file, serialize($accounts)))
-      echo "OK\n";
-    else
-      echo "ERROR\n";
-  }
-}
-header('Location: index.php');
-
-?>
+<?php include './include/footer.php'; ?>

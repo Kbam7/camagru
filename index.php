@@ -1,24 +1,33 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Camagru</title>
 <?php include './include/header.php'; ?>
 </head>
-
 <body class="fluid">
     <header>
-        <h1 class="myclass">Camagru - <small>Take a photo, have some fun!</small></h1>
+        <h1>Camagru - <small>Take a photo, have some fun!</small></h1>
     </header>
+    <?php if (isset($_SESSION['errors'])): ?>
+    <div id="form-errors">
+        <?php foreach($_SESSION['errors'] as $error): ?>
+            <p><?php echo $error ?></p>
+        <?php 
+            endforeach;
+            unset($_SESSION['errors']);
+        ?>
+    </div>
+    <?php endif; ?>
     <section class="col-5 offset-left-1 login-form col">
-        <form method="post" action="login.php">
+        <form method="post" action="php/login.php">
             <div class="form-input">
                 <label for="login">Username:</label>
-                <input type="text" name="login" id="user-login" placeholder="Username" />
+                <input type="text" name="login" id="user-login" placeholder="Username" required="true" />
             </div>
             <div class="form-input">
                 <label for="passwd">Password:</label>
-                <input type="password" name="passwd" id="user-passwd" placeholder="Password" />
+                <input type="password" name="passwd" id="user-passwd" placeholder="Password" required="true" />
             </div>
             <div class="form-input">
                 <label name="remember" for="remember-user">Remember me</label>
@@ -35,7 +44,7 @@
             <p>
                 Create a free account now and get in on all the latest news and gossip!
             </p>
-            <a class="options-button" href="create.html" title="Create an Account">Create Account</a>
+            <a class="options-button" href="create.php" title="Create an Account">Create Account</a>
         </div>
         <hr />
         <div class="modify-account">
@@ -43,8 +52,9 @@
             <p>
                 Change the password for your account.
             </p>
-            <a class="options-button" href="modify.html" title="Change Password">Change Password</a>
+            <a class="options-button" href="modify.php" title="Change Password">Change Password</a>
         </div>
     </section>
+
 
 <?php include './include/footer.php'; ?>

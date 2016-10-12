@@ -16,7 +16,7 @@ window.onload = function() {
         });
     }
 
-    // Functionality for camera
+    //  Functionality for camera
     activateUsersCamera();
 
 }

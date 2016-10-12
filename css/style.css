@@ -4,22 +4,50 @@ body {
     background-color: #555;
 }
 
+header {
+    margin: 10px 0px 50px;
+    text-align: center;
+}
+
+#imageDisplay {
+    text-align: center;
+}
+
 #videoStream {
-    width: 500px;
-    height: 375px;
+    width: 80%;
+    max-width: 1024px;
+    height: auto;
     background-color: #666;
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
 }
 
 #canvas {
-    width: 500px;
-    height: 375px;
+    width: 80%;
+    max-width: 1024px;
+    height: auto;
 }
 
 .gallery-img {
-    width: 500px;
-    height: 375px;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+}
+
+
+/* ------[ ERRORS ]------ */
+
+#form-errors {
+    width: 70%;
+    max-width: 700px;
+    margin: auto;
+    clear: both;
+}
+
+#form-errors p {
+    padding: 10px 60px;
+    text-align: center;
+    color: #fff;
+    background-color: #ff3a3a;
+    font-weight: 600;
 }
 
 

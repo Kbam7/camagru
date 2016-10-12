@@ -4,8 +4,13 @@ function activateUsersCamera() {
 
     var video = document.querySelector('#videoStream'),
         canvas = document.querySelector('#canvas'),
-        width = 500,
-        height = 350;
+        width = window.innerWidth / (9 / 5),
+        height = width / (4 / 3);
+
+    if (width > 1024) {
+        width = 1024,
+            height = width / (4 / 3);
+    }
 
     if (video && canvas) {
         video.setAttribute('width', width);
@@ -15,6 +20,14 @@ function activateUsersCamera() {
 
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
         if (navigator.getUserMedia) {
+            var constraints = {
+                audio: false,
+                video: {
+                    width: { ideal: 1280, max: 1920 },
+                    height: { ideal: 720, max: 1080 },
+                    facingMode: "user"
+                }
+            };
             navigator.getUserMedia({ video: true }, displayStream, streamError);
         }
 
@@ -46,7 +59,7 @@ function activateUsersCamera() {
             newImg.setAttribute('src', data);
             newImg.setAttribute('alt', "ADD SOMETHING HERE");
             newImg.className = "gallery-img";
-            document.body.insertBefore(newImg, gallery);
+            gallery.appendChild(newImg);
         }
     }
 }

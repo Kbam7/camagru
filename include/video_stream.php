@@ -2,7 +2,7 @@
 
 echo
     '
-    <section class="col-8 offset-left-2">
+    <section class="col-7 mobile-margin" id="imageDisplay">
         <video autoplay="true" id="videoStream">
 
         </video>
