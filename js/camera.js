@@ -9,7 +9,7 @@ function activateUsersCamera() {
 
     if (width > 1024) {
         width = 1024,
-            height = width / (4 / 3);
+        height = width / (4 / 3);
     }
 
     if (video && canvas) {
@@ -28,7 +28,7 @@ function activateUsersCamera() {
                     facingMode: "user"
                 }
             };
-            navigator.getUserMedia({ video: true }, displayStream, streamError);
+            navigator.getUserMedia(constraints, displayStream, streamError);
         }
 
         // Taking a photo

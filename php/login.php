@@ -7,13 +7,11 @@ $passwd = $_POST['passwd'];
 if ($_POST['submit'] !== "OK"){
 	$_SESSION['errors'] = array("ERROR -- No okay received from 'submit' input.");
     $_SESSION['logged_on_user'] = "";
-	echo $_SESSION['errors'] . "\n";
 	header('Location: ../index.php');
 }
 else if ($login === "" || $login === null || $passwd === "" || $passwd === null){
 	$_SESSION['errors'] = array("ERROR -- No login or password entered.");
     $_SESSION['logged_on_user'] = "";
-	echo $_SESSION['errors'] . "\n";
 	header('Location: ../index.php');
 }
 else if (auth($login, $passwd)){
@@ -23,7 +21,6 @@ else if (auth($login, $passwd)){
 else{
     $_SESSION['errors'] = array("ERROR -- User '" . $login . "' does not exist.");
     $_SESSION['logged_on_user'] = "";
-    echo $_SESSION['errors'] . "\n";
     header('Location: ../index.php');
 }
 ?>
