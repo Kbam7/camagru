@@ -13,12 +13,13 @@ function activateUsersCamera() {
     }
 
     if (video && canvas) {
-/*
+
+        // Set initial size for video and canvas elements
         video.setAttribute('width', width);
         video.setAttribute('height', height);
         canvas.setAttribute('width', width);
         canvas.setAttribute('height', height);
-*/
+
         // Vendor specific aliases for 'navigator.getUserMedia'
         navigator.getUserMedia =    (navigator.getUserMedia ||
                                     navigator.webkitGetUserMedia ||
