@@ -13,12 +13,19 @@ function activateUsersCamera() {
     }
 
     if (video && canvas) {
+/*
         video.setAttribute('width', width);
         video.setAttribute('height', height);
         canvas.setAttribute('width', width);
         canvas.setAttribute('height', height);
-
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+*/
+        // Vendor specific aliases for 'navigator.getUserMedia'
+        navigator.getUserMedia =    (navigator.getUserMedia ||
+                                    navigator.webkitGetUserMedia ||
+                                    navigator.mozGetUserMedia ||
+                                    navigator.msGetUserMedia ||
+                                    navigator.oGetUserMedia)
+        // Access the users webcam
         if (navigator.getUserMedia) {
             var constraints = {
                 audio: false,
@@ -44,6 +51,8 @@ function activateUsersCamera() {
     }
 
     function displayStream(stream) {
+        // Vendor specific aliases for 'window.URL'
+        window.URL = (window.URL || window.mozURL || window.webkitURL)
         video.src = window.URL.createObjectURL(stream);
     }
 
