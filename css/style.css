@@ -1,7 +1,7 @@
 /* css styles */
 
 body {
-    background-color: #555;
+    background-color: #0462f9;
 }
 
 header {
@@ -11,6 +11,11 @@ header {
 
 #imageDisplay {
     text-align: center;
+}
+
+#imageDisplay form {
+    max-width: 80%;
+    margin: auto;
 }
 
 #videoStream {
@@ -36,9 +41,9 @@ header {
 
 .gallery-img {
     width: 100%;
-    max-width: 320px;
+    max-width: 256px;
     height: auto;
-    max-height: 240px;
+    max-height: 192px;
     margin: 6px auto;
 }
 

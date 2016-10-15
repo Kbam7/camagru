@@ -2,6 +2,7 @@
 session_start();
 if (isset($_SESSION['logged_on_user']) && strlen($_SESSION['logged_on_user']) > 0) {
 ?>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Chat Room</title>
@@ -13,9 +14,29 @@ if (isset($_SESSION['logged_on_user']) && strlen($_SESSION['logged_on_user']) > 
       <h1>Camagru - <small>Take a photo, have some fun!</small></h1>
     </header>
 
-<?php include './include/video_stream.php'; ?>
-<?php include './include/gallery.php'; ?>
+    <section class="col-7 mobile-margin" id="imageDisplay">
+        <video autoplay="true" id="videoStream">
+
+        </video>
+        <canvas id="canvas" style="display: none;">
+        </canvas>
+        <form method="post" enctype="multipart/form-data">
+            Select image to upload:
+            <input type="file" name="fileToUpload" id="fileToUpload">
+            <input type="submit" value="Upload Image" name="submit" onclick="ajax_request('php/upload.php', document.querySelector('input[type=file]').value, addNewImage)">
+        </form>
+    </section>
+
+    <aside id="gallery" class="col-5 mobile-margin">
+
+    </aside>
+
+    <div id="demo">
+        
+    </div>
+
 <?php include './include/footer.php';
+
 } else {
     $_SESSION['errors'] = array("ERROR -- Please log in before accesing this website");
     $_SESSION['logged_on_user'] = "";

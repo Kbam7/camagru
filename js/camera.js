@@ -4,7 +4,7 @@ function activateUsersCamera() {
 
     var video = document.querySelector('#videoStream'),
         canvas = document.querySelector('#canvas'),
-        width = window.innerWidth / (9 / 5),
+        width = window.innerWidth / (7 / 3),
         height = width / (4 / 3);
 
     if (width > 1024) {
@@ -63,6 +63,11 @@ function activateUsersCamera() {
     }
 
     function addNewImage(data) {
+
+//        var imgData = JSON.stringify({data});
+//        ajax_request('php/image_upload.php', "image=".data);
+
+
         var newImg = document.createElement("img");
         var gallery = document.getElementById("gallery");
         if (gallery && newImg) {
@@ -71,5 +76,7 @@ function activateUsersCamera() {
             newImg.className = "gallery-img";
             gallery.appendChild(newImg);
         }
+
     }
+
 }
