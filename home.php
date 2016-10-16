@@ -20,10 +20,15 @@ if (isset($_SESSION['logged_on_user']) && strlen($_SESSION['logged_on_user']) > 
         </video>
         <canvas id="canvas" style="display: none;">
         </canvas>
-        <form method="post" enctype="multipart/form-data">
+
+<div id="progress">
+
+</div>
+
+        <form id="imageUploadForm" method="post" enctype="multipart/form-data">
             Select image to upload:
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" value="Upload Image" name="submit" onclick="ajax_request('php/upload.php', document.querySelector('input[type=file]').value, addNewImage)">
+            <input type="file" name="userfile" id="file">
+            <input type="submit" value="Upload Image" name="submit">
         </form>
     </section>
 
@@ -32,7 +37,7 @@ if (isset($_SESSION['logged_on_user']) && strlen($_SESSION['logged_on_user']) > 
     </aside>
 
     <div id="demo">
-        
+
     </div>
 
 <?php include './include/footer.php';

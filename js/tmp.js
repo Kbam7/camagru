@@ -36,44 +36,28 @@ window.onload = function() {
 }
 
 function ajax_upload_image(/*url, data*/) {
-    var httpRequest,
-        uploadForm = document.forms[0],
-        formdata = new FormData(uploadForm);
-
-    formdata.append("submit", "1");
+    var httpRequest;
 
     httpRequest = new XMLHttpRequest();
-
-    httpRequest.upload.addEventListener("onloadend", finishedLoading);
-    httpRequest.upload.addEventListener("progress", progressUpdate);
-
-    try {
-        httpRequest.open("POST", "php/user_image_upload.php", true);
-        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        httpRequest.send(formdata);
-    } catch (e){
-        document.getElementById("demo").innerHTML = "httpRequest.send error : " + e;
-    }
-
-
-
-
-    function progressUpdate(event) {
-        if(event.lengthComputable) {
-            var percent = event.loaded / event.total * 100;
-            document.getElementById("progress").innerHTML = percent+ "%";
-        }
-    }
-
-    function finishedLoading() {
+    httpRequest.open("POST", "php/image_upload.php", true);
+    httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 debugger;
 
+    var userfile = encodeURIComponent(document.forms[0]['fileToUpload'].value);
+    var data = "image="+userfile;
+
+    httpRequest.onreadystatechange = function() {
         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+            debugger;
             var res = httpRequest.responseText;
-        }else {
-            var res = "An error occured. ERROR : " + httpRequest.statusText;
+            document.getElementById("demo").innerHTML = res;
         }
-        document.getElementById("demo").innerHTML = res;
+    };
+
+    try {
+        httpRequest.send(data);
+    } catch (e){
+        document.getElementById("demo").innerHTML = "httpRequest.send error : " + e;
     }
 }
