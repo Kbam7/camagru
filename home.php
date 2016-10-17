@@ -21,11 +21,10 @@ if (isset($_SESSION['logged_on_user']) && strlen($_SESSION['logged_on_user']) > 
         <canvas id="canvas" style="display: none;">
         </canvas>
 
-<div id="progress">
-
-</div>
+<h2>Add abort function for user</h2>
 
         <form id="imageUploadForm" method="post" enctype="multipart/form-data">
+            <div id="progress"></div>
             Select image to upload:
             <input type="file" name="userfile" id="file">
             <input type="submit" value="Upload Image" name="submit">
@@ -36,7 +35,7 @@ if (isset($_SESSION['logged_on_user']) && strlen($_SESSION['logged_on_user']) > 
 
     </aside>
 
-    <div id="demo">
+    <div id="form-errors">
 
     </div>
 

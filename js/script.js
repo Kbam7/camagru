@@ -1,7 +1,7 @@
 "use strict";
 window.onload = function() {
 
-// --- Global events ---
+    // --- Global events ---
 
     // Add animation to input elements
     var formInputList = document.querySelectorAll('input[type=text], input[type=password]');
@@ -19,23 +19,23 @@ window.onload = function() {
     }
 
 
-// --- NON-Global events ---
+    // --- NON-Global events ---
 
     // Submit event for image upload form
     var imageUploadForm = document.querySelector("#imageUploadForm");
-    if (imageUploadForm){
+    if (imageUploadForm) {
         imageUploadForm.addEventListener('submit', function(e) {
             e.preventDefault();
             ajax_upload_image();
         });
     }
 
-//  Functionality for camera
+    //  Functionality for camera
     activateUsersCamera();
 
 }
 
-function ajax_upload_image(/*url, data*/) {
+function ajax_upload_image( /*url, data*/ ) {
     var httpRequest,
         uploadForm = document.forms[0],
         formdata = new FormData(uploadForm);
@@ -44,36 +44,44 @@ function ajax_upload_image(/*url, data*/) {
 
     httpRequest = new XMLHttpRequest();
 
-    httpRequest.upload.addEventListener("onloadend", finishedLoading);
     httpRequest.upload.addEventListener("progress", progressUpdate);
+    httpRequest.upload.addEventListener("load", finishedLoading);
+    httpRequest.upload.addEventListener("abort", uploadAborted);
+    httpRequest.upload.addEventListener("error", uploadError);
 
     try {
         httpRequest.open("POST", "php/user_image_upload.php", true);
-        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        //        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         httpRequest.send(formdata);
-    } catch (e){
-        document.getElementById("demo").innerHTML = "httpRequest.send error : " + e;
+    } catch (e) {
+        document.getElementById("form-errors").innerHTML = "httpRequest.send error : " + e;
     }
 
 
 
 
     function progressUpdate(event) {
-        if(event.lengthComputable) {
+        if (event.lengthComputable) {
             var percent = event.loaded / event.total * 100;
-            document.getElementById("progress").innerHTML = percent+ "%";
+            document.getElementById("progress").innerHTML = percent.toFixed(1) + "%";
         }
     }
 
-    function finishedLoading() {
-
-debugger;
-
-        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-            var res = httpRequest.responseText;
-        }else {
-            var res = "An error occured. ERROR : " + httpRequest.statusText;
-        }
-        document.getElementById("demo").innerHTML = res;
+    function finishedLoading(event) {
+        httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                var res = httpRequest.responseText;
+                document.getElementById("form-errors").innerHTML = res;
+            }
+        };
     }
+
+    function uploadAborted(event) {
+        console.log("User aborted file upload or the connection was lost. ERROR : " + event.message);
+    }
+
+    function uploadError(event) {
+        console.log("An error has occured. ERROR : " + event.message);
+    }
+
 }
