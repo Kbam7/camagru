@@ -12,8 +12,8 @@
     <?php if (isset($_SESSION['errors'])): ?>
     <div id="form-errors">
         <?php foreach($_SESSION['errors'] as $error): ?>
-            <p><?php echo $error ?></p>
-        <?php 
+            <p class="danger"><?php echo $error ?></p>
+        <?php
             endforeach;
             unset($_SESSION['errors']);
         ?>

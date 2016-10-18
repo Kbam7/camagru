@@ -47,7 +47,7 @@ function activateUsersCamera() {
 
             //  Add image to gallery
             var data = canvas.toDataURL('image/png');
-            addNewImage(data);
+            ajax_upload_webcam_image(data);
         })
     }
 
@@ -62,7 +62,7 @@ function activateUsersCamera() {
         console.log("There was an error accessing your webcam.");
     }
 
-    function addNewImage(data) {
+    function ajax_upload_webcam_image(data) {
 
 //        var imgData = JSON.stringify({data});
 //        ajax_request('php/image_upload.php', "image=".data);
