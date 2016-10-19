@@ -40,15 +40,6 @@ window.onload = function() {
         });
     }
 
-    // Submit event for login form
-    var loginForm = document.querySelector("#loginForm");
-    if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            userLogin();
-        });
-    }
-
     // Submit event for image upload form
     var imageUploadForm = document.querySelector("#imageUploadForm");
     if (imageUploadForm) {
@@ -97,22 +88,6 @@ function createUser() {
         "&passwd=" + passwd;
 
     ajax_post("php/create_acc.php", data, function(httpRequest) {
-        displayError(httpRequest.responseText);
-    });
-}
-
-function userLogin(user, passwd) {
-    if (user === undefined) {
-        user = document.getElementById("user-login").value;
-    }
-    if (passwd === undefined) {
-        passwd = document.getElementById("user-passwd").value;
-    }
-    user = encodeURIComponent(user);
-    passwd = encodeURIComponent(passwd);
-
-    let data = "submit=1&login=" + user + "&passwd=" + passwd;
-    ajax_post("php/login.php", data, function(httpRequest) {
         displayError(httpRequest.responseText);
     });
 }

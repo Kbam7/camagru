@@ -45,9 +45,8 @@ if (isset($_SESSION['logged_on_user'])) {
 
 <?php include './include/footer.php';
 } else {
-    //    $_SESSION['errors'] = array('ERROR -- Please log in before accesing this website');
-    displayError('<p>ERROR -- Please log in before accesing this website</p>');
+    $_SESSION['errors'] = array('ERROR -- Please log in before accesing this website');
     $_SESSION['logged_on_user'] = '';
-//    header('Location: index.php');
+    header('Location: index.php');
 }
 ?>
