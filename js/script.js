@@ -15,7 +15,7 @@ window.onload = function() {
     /* --- Global events --- */
 
     // Add animation to input elements
-    var formInputList = document.querySelectorAll('input[type=text], input[type=password]');
+    var formInputList = document.querySelectorAll('input[type=text], input[type=password], input[type=email]');
     for (var i = 0; i < formInputList.length; ++i) {
         formInputList[i].addEventListener('click', function() {
             this.previousElementSibling.className = 'fade-in-up medium';
@@ -45,9 +45,6 @@ window.onload = function() {
     if (imageUploadForm) {
         imageUploadForm.addEventListener('submit', function(e) {
             e.preventDefault();
-
-            debugger;
-
             ajax_upload_image();
         });
     }
@@ -88,7 +85,16 @@ function createUser() {
         "&passwd=" + passwd;
 
     ajax_post("php/create_acc.php", data, function(httpRequest) {
-        displayError(httpRequest.responseText);
+        //        displayError(httpRequest.responseText);
+        let response = JSON.parse(httpRequest.responseText);
+        if (response.status === true) {
+            displayError(response.statusMsg + " <p class=\"info\">Redirecting to login page . . .</p>");
+            setTimeout(function() {
+                window.location = "index.php";
+            }, 3000);
+        } else {
+            displayError(response.statusMsg);
+        }
     });
 }
 
@@ -194,8 +200,6 @@ function ajax_post(url, data, callback) {
 
 // Function to display errors
 function displayError(errMsg) {
-
-    debugger;
 
     let errDiv = document.getElementById("error-messages");
     clearTimeout(addClass_timeout);

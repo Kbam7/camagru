@@ -15,23 +15,23 @@
         <form id="createUserForm" method="post" enctype="application/x-www-form-urlencoded">
             <div class="form-input">
                 <label for="firstname">Firstname:</label>
-                <input type="text" name="firstname" id="fname" value="" autocomplete="true" required="true" />
+                <input type="text" name="firstname" id="fname" value="" placeholder="Firstname" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
                 <label for="lastname">Lastname:</label>
-                <input type="text" name="lastname" id="lname" value="" autocomplete="true" required="true" />
+                <input type="text" name="lastname" id="lname" value="" placeholder="Lastname" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
                 <label for="username">Username:</label>
-                <input type="text" name="username" id="uname" value="" autocomplete="true" required="true" />
+                <input type="text" name="username" id="uname" value="" placeholder="Username" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
                 <label for="emailaddr">Email Address:</label>
-                <input type="email" name="emailaddr" id="email" value="" autocomplete="true" required="true" />
+                <input type="email" name="emailaddr" id="email" value="" placeholder="Email Address" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
                 <label for="password">Password:</label>
-                <input type="password" name="password" id="passwd" value="" autocomplete="true" required="true" />
+                <input type="password" name="password" id="passwd" value="" placeholder="Password" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
                 <input type="submit" name="submit" value="OK" />

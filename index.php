@@ -10,7 +10,7 @@
         <h1>Camagru - <small>Take a photo, have some fun!</small></h1>
     </header>
     <?php if (isset($_SESSION['errors'])): ?>
-    <div id="form-errors">
+    <div id="error-messages">
         <?php foreach ($_SESSION['errors'] as $error): ?>
             <p class="danger"><?php echo $error ?></p>
         <?php
