@@ -1,26 +1,24 @@
 <?php
+
 session_start();
-include('auth.php');
+include 'auth.php';
 
 $login = $_POST['login'];
 $passwd = $_POST['passwd'];
-if ($_POST['submit'] !== "OK"){
-    $_SESSION['errors'] = array("ERROR -- No okay received from 'submit' input.");
+
+if ($_POST['submit'] !== '1') {
+    echo "<p class=\"danger\">No okay received from 'submit' input.</p>";
     $_SESSION['logged_on_user'] = "";
-    header('Location: ../index.php');
-}
-else if ($login === "" || $login === null || $passwd === "" || $passwd === null){
-    $_SESSION['errors'] = array("ERROR -- No login or password entered.");
+//    header('Location: ../index.php');
+} elseif ($login === '' || $login === null || $passwd === '' || $passwd === null) {
+    echo "<p class="danger">No login or password entered.</p>";
     $_SESSION['logged_on_user'] = "";
-    header('Location: ../index.php');
-}
-else if (auth($login, $passwd)){
-    $_SESSION['logged_on_user'] = $login;
+//    header('Location: ../index.php');
+} elseif ($user = auth($login, $passwd)) {
+    $_SESSION['logged_on_user'] = $user;
     header('Location: ../home.php');
-}
-else{
-    $_SESSION['errors'] = array("ERROR -- User '" . $login . "' does not exist.");
+} else {
+    echo "<p class=\"danger\">User '".$login."' does not exist.</p>";
     $_SESSION['logged_on_user'] = "";
-    header('Location: ../index.php');
+//    header('Location: ../index.php');
 }
-?>

@@ -1,34 +1,31 @@
 <?php
 
-if ((!$_POST['login'] || !$_POST['passwd']) || $_POST['submit'] !== "OK")
-  echo "ERROR\n";
-else if ($_POST['submit'] === "OK")
-{
-  $flag = 0;
-  $path = "private/";
-  $file = $path."passwd";
-  if (!file_exists($path))
-    mkdir($path, 0777);
-  if (file_exists($file))
-  {
-    $accounts = unserialize(file_get_contents("private/passwd"));
-    foreach ($accounts as $acc) {
-      if ($acc['login'] === $_POST['login']){
-        $flag = 1;
-        echo "ERROR\n";
-        break ;
-      }
-    }
-  }
-  if ($flag == 0){
-    $passwd = hash('whirlpool', $_POST['passwd']);
-    $accounts[] = array('login' => $_POST['login'], 'passwd' => $passwd);
-    if (file_put_contents($file, serialize($accounts)))
-      echo "OK\n";
-    else
-      echo "ERROR\n";
-  }
-}
-header('Location: ../index.php');
+session_start();
+include '../config/database.php';
 
-?>
+if ($_POST['submit'] === '1' && $_POST['first'] && $_POST['last']
+        && $_POST['user'] && $_POST['email'] && $_POST['passwd']) {
+    try {
+        $dbname = 'camagru';
+        $fname = $_POST['fname'];
+        $lname = $_POST['lname'];
+        $uname = $_POST['uname'];
+        $email = $_POST['email'];
+        $passwd = hash('whirlpool', $_POST['passwd']);
+
+        $conn = new PDO("$DB_DSN;dbname=$dbname", $DB_USER, $DB_PASSWORD);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = $conn->prepare('INSERT INTO `users` (`firstname`, `lastname`, `username`, `email`, `password`) VALUES (:fname, :lname, :uname, :email, :passwd);');
+        $sql->execute(['fname' => $fname, 'lname' => $lname, 'uname' => $uname, 'email' => $email, 'passwd' => $passwd]);
+
+        echo json_encode(true);
+    } catch (PDOException $e) {
+        echo "<p class=\"danger\">Error Message: '.$e->getMessage().'. Check \"~/Desktop/camagru/log/errors.log\" for error details.</p>";
+        error_log($e, 3, '~/Desktop/camagru/log/errors.log');
+        echo json_encode(false);
+    }
+    $conn = null;
+} else {
+    echo json_encode(false);
+}

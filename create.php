@@ -5,11 +5,11 @@
 <?php include './include/header.php'; ?>
 </head>
 <body>
-    <header class="global-style">
+    <header>
         <h1><a href="index.php">Create Account</a></h1>
     </header>
-    <section class="global-style">
-        <form method="post" action="php/create_acc.php">
+    <section class="col-8 offset-left-2">
+        <form id="createUserForm" method="post" enctype="application/x-www-form-urlencoded">
             <div class="form-input">
                 <label for="login">Username:</label>
                 <input type="text" name="login" id="user-login" value="" />
