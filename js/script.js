@@ -31,12 +31,21 @@ window.onload = function() {
 
     /* --- NON-Global events --- */
 
+    // Submit event for new user form
+    var createUserForm = document.querySelector("#createUserForm");
+    if (createUserForm) {
+        createUserForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            createUser();
+        });
+    }
+
     // Submit event for login form
     var loginForm = document.querySelector("#loginForm");
     if (loginForm) {
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            user_login();
+            userLogin();
         });
     }
 
@@ -45,6 +54,9 @@ window.onload = function() {
     if (imageUploadForm) {
         imageUploadForm.addEventListener('submit', function(e) {
             e.preventDefault();
+
+            debugger;
+
             ajax_upload_image();
         });
     }
@@ -70,6 +82,25 @@ function removeClass(el, className) {
     }
 }
 
+function createUser() {
+    let fname = encodeURIComponent(document.getElementById("fname").value);
+    let lname = encodeURIComponent(document.getElementById("lname").value);
+    let uname = encodeURIComponent(document.getElementById("uname").value);
+    let email = encodeURIComponent(document.getElementById("email").value);
+    let passwd = encodeURIComponent(document.getElementById("passwd").value);
+
+    let data = "submit=1" +
+        "&fname=" + fname +
+        "&lname=" + lname +
+        "&uname=" + uname +
+        "&email=" + email +
+        "&passwd=" + passwd;
+
+    ajax_post("php/create_acc.php", data, function(httpRequest) {
+        displayError(httpRequest.responseText);
+    });
+}
+
 function userLogin(user, passwd) {
     if (user === undefined) {
         user = document.getElementById("user-login").value;
@@ -77,8 +108,10 @@ function userLogin(user, passwd) {
     if (passwd === undefined) {
         passwd = document.getElementById("user-passwd").value;
     }
+    user = encodeURIComponent(user);
+    passwd = encodeURIComponent(passwd);
 
-    let data = "login=" + user + "&passwd=" + passwd;
+    let data = "submit=1&login=" + user + "&passwd=" + passwd;
     ajax_post("php/login.php", data, function(httpRequest) {
         displayError(httpRequest.responseText);
     });
@@ -186,6 +219,9 @@ function ajax_post(url, data, callback) {
 
 // Function to display errors
 function displayError(errMsg) {
+
+    debugger;
+
     let errDiv = document.getElementById("error-messages");
     clearTimeout(addClass_timeout);
     clearTimeout(removeError_timeout);
@@ -193,14 +229,15 @@ function displayError(errMsg) {
         errDiv.innerHTML = errMsg;
         let msgs = errDiv.childNodes;
         for (let msg of msgs) {
-            addClass(msg, "scale-in slow");
+            addClass(msg, "scale-in");
+            addClass(msg, "slow");
         }
     }
 
     // Remove html. i.e. Get text only
     let tmp = document.createElement("div");
-    tmp.innerHTML = html;
-    errMsg = tmp.textContent || tmp.innerText || "";
+    tmp.innerHTML = errMsg;
+    errMsg = tmp.textContent || tmp.innerText || "No error message found.";
 
     console.log(errMsg);
 }
@@ -225,7 +262,7 @@ function observeErrors(errorDiv) {
                         errorDiv.removeChild(errorDiv.children[0]);
                     }
                 }, 2000);
-            }, 10000);
+            }, 30000);
         })
     });
 

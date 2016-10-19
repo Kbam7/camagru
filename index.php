@@ -16,11 +16,11 @@
         <form id="loginForm" method="post" enctype="application/x-www-form-urlencoded">
             <div class="form-input">
                 <label for="login">Username:</label>
-                <input type="text" name="login" id="user-login" placeholder="Username" title="Username can only contain alphanumeric characters and the following special characters: dot (.), underscore(_) and dash (-). The special characters cannot appear more than once consecutively or combined." pattern="(?!.*[\.\-\_]{2,})^[a-zA-Z0-9\.\-\_]{3,24}$" required="true" />
+                <input type="text" name="login" id="user-login" placeholder="Username" title="Username can only contain alphanumeric characters and the following special characters: dot (.), underscore(_) and dash (-). The special characters cannot appear more than once consecutively or combined." required="true" /> <!--    pattern="(?!.*[\.\-\_]{2,})^[a-zA-Z0-9\.\-\_]{3,24}$"   -->
             </div>
             <div class="form-input">
                 <label for="passwd">Password:</label>
-                <input type="password" name="passwd" id="user-passwd" placeholder="Password" title="Password MUST contain atleast 6 characters with atleast one upper or lower case letter with another upper or lower case letter or a digit." pattern="^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})" required="true" />
+                <input type="password" name="passwd" id="user-passwd" placeholder="Password" title="Password MUST contain atleast 6 characters with atleast one upper or lower case letter with another upper or lower case letter or a digit." required="true" /> <!--     pattern="^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})"    -->
             </div>
             <div class="form-input">
                 <input type="submit" name="submit" value="OK" />
