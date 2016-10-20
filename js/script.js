@@ -58,14 +58,14 @@ window.onload = function() {
 
 // Add class to element
 function addClass(el, className) {
-    if (!el.classList.contains(className)) {
+    if (el.classList && !el.classList.contains(className)) {
         el.classList.add(className);
     }
 }
 
 // Remove class from element
 function removeClass(el, className) {
-    if (el.classList.contains(className)) {
+    if (el.classList && el.classList.contains(className)) {
         el.classList.remove(className);
     }
 }
@@ -87,6 +87,10 @@ function createUser() {
     ajax_post("php/create_acc.php", data, function(httpRequest) {
         //        displayError(httpRequest.responseText);
         let response = JSON.parse(httpRequest.responseText);
+
+        debugger;
+        console.log(response);
+
         if (response.status === true) {
             displayError(response.statusMsg + " <p class=\"info\">Redirecting to login page . . .</p>");
             setTimeout(function() {

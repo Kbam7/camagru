@@ -42,7 +42,7 @@ if (isset($_POST['submit']) && $_POST['submit'] === '1') {
 
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        echo '<p class="infow">Your file was not uploaded!</p>';
+        echo '<p class="info">Your file was not uploaded!</p>';
     // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES['userfile']['tmp_name'], $target_file)) {
