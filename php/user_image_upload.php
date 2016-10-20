@@ -6,7 +6,7 @@ $target_file = $target_dir.uniqid().'.'.$imageFileType;
 $uploadOk = 1;
 
 // Check if image file is a actual image or fake image
-if (isset($_POST['submit']) && $_POST['submit'] === '1') {
+if (isset($_POST['submit'])) {
     $check = getimagesize($_FILES['userfile']['tmp_name']);
     if ($check !== false) {
         //        echo "File is an image - " . $check["mime"] . ".";

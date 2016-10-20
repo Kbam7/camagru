@@ -32,20 +32,20 @@ window.onload = function() {
     /* --- NON-Global events --- */
 
     // Submit event for new user form
-    var createUserForm = document.querySelector("#createUserForm");
+    let createUserForm = document.querySelector("#createUserForm");
     if (createUserForm) {
         createUserForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            createUser();
+            createUser(createUserForm);
         });
     }
 
     // Submit event for image upload form
-    var imageUploadForm = document.querySelector("#imageUploadForm");
+    let imageUploadForm = document.querySelector("#imageUploadForm");
     if (imageUploadForm) {
         imageUploadForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            ajax_upload_image();
+            ajax_upload_image(imageUploadForm);
         });
     }
 
@@ -70,7 +70,7 @@ function removeClass(el, className) {
     }
 }
 
-function createUser() {
+function createUser(form) {
     let fname = encodeURIComponent(document.getElementById("fname").value);
     let lname = encodeURIComponent(document.getElementById("lname").value);
     let uname = encodeURIComponent(document.getElementById("uname").value);
@@ -83,6 +83,8 @@ function createUser() {
         "&uname=" + uname +
         "&email=" + email +
         "&passwd=" + passwd;
+
+    validate_input(form);
 
     ajax_post("php/create_acc.php", data, function(httpRequest) {
         //        displayError(httpRequest.responseText);
@@ -102,15 +104,43 @@ function createUser() {
     });
 }
 
+// Form validation code will come here.
+function validate_input(form) {
+
+    if (form.Name.value == "") {
+        alert("Please provide your name!");
+        form.Name.focus();
+        return false;
+    }
+
+    if (form.EMail.value == "") {
+        alert("Please provide your Email!");
+        form.EMail.focus();
+        return false;
+    }
+
+    if (document.myForm.Zip.value == "" ||
+        isNaN(document.myForm.Zip.value) ||
+        document.myForm.Zip.value.length != 5) {
+        alert("Please provide a zip in the format #####.");
+        document.myForm.Zip.focus();
+        return false;
+    }
+
+    if (document.myForm.Country.value == "-1") {
+        alert("Please provide your country!");
+        return false;
+    }
+    return (true);
+}
+
+
+
+
 // Function for uploading users images
-function ajax_upload_image() {
-    var httpRequest,
-        uploadForm = document.forms[0],
+function ajax_upload_image(uploadForm) {
+    var httpRequest = new XMLHttpRequest(),
         formdata = new FormData(uploadForm);
-
-    formdata.append("submit", "1");
-
-    httpRequest = new XMLHttpRequest();
 
     httpRequest.upload.addEventListener("progress", uploadProgress);
     httpRequest.upload.addEventListener("loadstart", uploadStarted);

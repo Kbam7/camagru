@@ -24,8 +24,8 @@ function auth($login, $passwd)
 
         return $user;
     } catch (PDOException $e) {
-        $_SESSION['errors'] = array("<b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> \"/home/kbam7/lampstack-7.0.11-2/apache2/htdocs/camagru/log/errors.log\"");
-        error_log($e, 3, '/home/kbam7/lampstack-7.0.11-2/apache2/htdocs/camagru/log/errors.log');
+        $_SESSION['errors'] = array("<b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> ".dirname(__DIR__)."/log/errors.log"."</p>");
+        error_log($e, 3, dirname(__DIR__).'/log/errors.log');
     }
     $conn = null;
 

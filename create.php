@@ -34,6 +34,10 @@
                 <input type="password" name="password" id="passwd" value="" placeholder="Password" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
+                <label for="password">Confirm Password:</label>
+                <input type="password" name="password2" id="passwd2" value="" placeholder="Confirm Password" autocomplete="true" required="true" />
+            </div>
+            <div class="form-input">
                 <input type="submit" name="submit" value="OK" />
             </div>
         </form>

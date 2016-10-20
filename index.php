@@ -23,7 +23,7 @@
         <form method="post" action="php/login.php">
             <div class="form-input">
                 <label for="login">Username:</label>
-                <input type="text" name="login" id="user-login" placeholder="Username" title="Username can only contain alphanumeric characters and the following special characters: dot (.), underscore(_) and dash (-). The special characters cannot appear more than once consecutively or combined." required="true" /> <!--    pattern="(?!.*[\.\-\_]{2,})^[a-zA-Z0-9\.\-\_]{3,24}$"   -->
+                <input type="text" name="login" id="user-login" placeholder="Username" title="Username can only contain alphanumeric characters and the following special characters: dot (.), underscore(_) and dash (-). The special characters cannot appear more than once consecutively or combined." pattern="^[a-zA-Z]\B[a-zA-Z0-9]{4,18}[a-zA-Z0-9]\b$" required="true" /> <!--    pattern="(?!.*[\.\-\_]{2,})^[a-zA-Z0-9\.\-\_]{3,24}$"   -->
             </div>
             <div class="form-input">
                 <label for="passwd">Password:</label>
