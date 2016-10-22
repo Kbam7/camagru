@@ -14,17 +14,17 @@ function auth($login, $passwd)
         $sql = $conn->prepare('SELECT `id`, `firstname` FROM `users` WHERE username=:login AND password=:passwd;');
         $sql->execute(['login' => $login, 'passwd' => $passwd]);
 
-        if ($sql->rowCount() == 1) {
+        if ($sql->rowCount() > 0) {
             $user = $sql->fetch(PDO::FETCH_ASSOC);
         } else {
             $user = null;
-            $_SESSION['errors'] = array('ERROR -- Username or password is incorrect.');
+            $_SESSION['errors'] = array('Username or password is incorrect.');
         }
         $conn = null;
 
         return $user;
     } catch (PDOException $e) {
-        $_SESSION['errors'] = array("<b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> ".dirname(__DIR__)."/log/errors.log"."</p>");
+        $_SESSION['errors'] = array("<b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> ".dirname(__DIR__).'/log/errors.log'.'</p>');
         error_log($e, 3, dirname(__DIR__).'/log/errors.log');
     }
     $conn = null;

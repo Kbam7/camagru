@@ -11,15 +11,15 @@
   <section class="global-style">
     <form method="post" action="modify_acc.php">
       <div class="form-input">
-        <label for="login">Username:</label>
+        <label class="input" for="login">Username:</label>
         <input type="text" name="login" id="user-login" value="" />
       </div>
       <div class="form-input">
-        <label for="user-passwd">Old Password:</label>
+        <label class="input" for="user-passwd">Old Password:</label>
         <input type="password" name="oldpw" id="user-passwd1" value="" />
       </div>
       <div class="form-input">
-        <label for="user-passwd">New Password:</label>
+        <label class="input" for="user-passwd">New Password:</label>
         <input type="password" name="newpw" id="user-passwd2" value="" />
       </div>
       <div class="form-input">
@@ -27,5 +27,5 @@
       </div>
     </form>
   </section>
-  
+
 <?php include './include/footer.php'; ?>

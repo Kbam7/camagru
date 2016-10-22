@@ -14,27 +14,27 @@
     <section class="col-8 offset-left-2">
         <form id="createUserForm" method="post" enctype="application/x-www-form-urlencoded">
             <div class="form-input">
-                <label for="firstname">Firstname:</label>
+                <label class="input_label" for="firstname">Firstname:</label>
                 <input type="text" name="firstname" id="fname" value="" placeholder="Firstname" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
-                <label for="lastname">Lastname:</label>
+                <label class="input_label" for="lastname">Lastname:</label>
                 <input type="text" name="lastname" id="lname" value="" placeholder="Lastname" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
-                <label for="username">Username:</label>
+                <label class="input_label" for="username">Username:</label>
                 <input type="text" name="username" id="uname" value="" placeholder="Username" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
-                <label for="emailaddr">Email Address:</label>
+                <label class="input_label" for="emailaddr">Email Address:</label>
                 <input type="email" name="emailaddr" id="email" value="" placeholder="Email Address" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
-                <label for="password">Password:</label>
+                <label class="input_label" for="password">Password:</label>
                 <input type="password" name="password" id="passwd" value="" placeholder="Password" autocomplete="true" required="true" />
             </div>
             <div class="form-input">
-                <label for="password">Confirm Password:</label>
+                <label class="input_label" for="password">Confirm Password:</label>
                 <input type="password" name="password2" id="passwd2" value="" placeholder="Confirm Password" autocomplete="true" required="true" />
             </div>
             <div class="form-input">

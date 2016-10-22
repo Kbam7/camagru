@@ -8,13 +8,13 @@ $statusMsg = '';
 
 if ($_POST['submit'] === '1' && $_POST['fname'] && $_POST['lname'] && $_POST['uname'] && $_POST['email'] && $_POST['passwd']) {
     try {
-        $dbname = 'camagru';
         $fname = $_POST['fname'];
         $lname = $_POST['lname'];
         $uname = $_POST['uname'];
         $email = $_POST['email'];
         $passwd = hash('whirlpool', $_POST['passwd']);
 
+        $dbname = 'camagru';
         $conn = new PDO("$DB_DSN;dbname=$dbname", $DB_USER, $DB_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -29,11 +29,9 @@ if ($_POST['submit'] === '1' && $_POST['fname'] && $_POST['lname'] && $_POST['un
         }
         echo json_encode($response);
     } catch (PDOException $e) {
-        //        echo "<p class=\"danger\"><b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> \"/home/kbam7/lampstack-7.0.11-2/apache2/htdocs/camagru/log/errors.log\"</p>";
         error_log($e, 3, dirname(__DIR__).'/log/errors.log');
-        $response = array('status' => false, 'statusMsg' => "<p class=\"danger\"><b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> ".dirname(__DIR__)."/log/errors.log"."</p>");
-
-        $response = "my string";
+        $response = array('status' => false,
+                        'statusMsg' => "<p class=\"danger\"><b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> ".dirname(__DIR__).'/log/errors.log'.'</p>', );
 
         echo json_encode($response);
     }
@@ -46,6 +44,7 @@ if ($_POST['submit'] === '1' && $_POST['fname'] && $_POST['lname'] && $_POST['un
 function validNewUser($conn, $uname, $email)
 {
     global $statusMsg;
+
     $flag = true;
     $results = $conn->query('SELECT `username`, `email` FROM `users`;');
 

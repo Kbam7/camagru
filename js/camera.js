@@ -4,14 +4,16 @@ function activateUsersCamera() {
 
     var video = document.querySelector('#videoStream'),
         canvas = document.querySelector('#canvas'),
-        width = window.innerWidth / (7 / 3),
-        height = width / (4 / 3);
+        width = 640,
+        height = 480;
+    //        width = window.innerWidth / (7 / 3),
+    //        height = width / (4 / 3);
 
-    if (width > 1024) {
-        width = 1024,
-        height = width / (4 / 3);
-    }
-
+    /*    if (width > 1024) {
+            width = 1024,
+                height = width / (4 / 3);
+        }
+    */
     if (video && canvas) {
 
         // Set initial size for video and canvas elements
@@ -21,18 +23,24 @@ function activateUsersCamera() {
         canvas.setAttribute('height', height);
 
         // Vendor specific aliases for 'navigator.getUserMedia'
-        navigator.getUserMedia =    (navigator.getUserMedia ||
-                                    navigator.webkitGetUserMedia ||
-                                    navigator.mozGetUserMedia ||
-                                    navigator.msGetUserMedia ||
-                                    navigator.oGetUserMedia)
-        // Access the users webcam
+        navigator.getUserMedia = (navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+                navigator.msGetUserMedia ||
+                navigator.oGetUserMedia)
+            // Access the users webcam
         if (navigator.getUserMedia) {
             var constraints = {
                 audio: false,
                 video: {
-                    width: { ideal: 1280, max: 1920 },
-                    height: { ideal: 720, max: 1080 },
+                    width: {
+                        ideal: 1280,
+                        max: 1920
+                    },
+                    height: {
+                        ideal: 720,
+                        max: 1080
+                    },
                     facingMode: "user"
                 }
             };
@@ -42,20 +50,24 @@ function activateUsersCamera() {
     }
 
     function displayStream(stream) {
+        var overlayForm = document.querySelector('#overlayForm');
+
         // Vendor specific aliases for 'window.URL'
         window.URL = (window.URL || window.mozURL || window.webkitURL)
         video.src = window.URL.createObjectURL(stream);
 
         // Taking a photo
-        video.addEventListener('click', takePhoto);
+        overlayForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            processWebcamPhoto();
+        });
     }
 
     function streamError(e) {
-        alert("There was an error accessing your webcam.");
-        console.log("There was an error accessing your webcam.");
+        displayError("<p class=\"warning\">There was an error accessing your webcam. " + e + "</p>");
     }
 
-    function takePhoto() {
+    function processWebcamPhoto() {
         //  Draw image
         var context = canvas.getContext('2d');
         context.drawImage(video, 0, 0, width, height);
@@ -66,15 +78,20 @@ function activateUsersCamera() {
     }
 
     // Function for uploading webcam images
-    function ajax_upload_webcam_image(data) {
+    function ajax_upload_webcam_image(imgData) {
         var httpRequest,
-            imgData;
+            data,
+            overlay;
 
-        imgData = "submit=1&image=" + data.split(",")[1];
+        overlay = document.querySelector('input[name="overlay"]:checked');
 
-        alert(imgData);
+        if (!overlay) {
+            displayError("<p class=\"warning\">No overlay found! Please make sure you have seleced an overlay.</p>");
+            return; // no overlay found
+        }
 
-    debugger;
+        overlay = overlay.value;
+        data = "submit=1&image=" + imgData + "&overlay=" + overlay;
 
         httpRequest = new XMLHttpRequest();
 
@@ -84,22 +101,19 @@ function activateUsersCamera() {
         httpRequest.upload.addEventListener("loadend", uploadFinished);
         httpRequest.upload.addEventListener("abort", uploadAborted);
         httpRequest.upload.addEventListener("error", uploadError);
-        document.getElementById("cancelUploadBtn").addEventListener("click", cancelUpload)
+        document.getElementById("cancelUploadBtn").addEventListener("click", cancelUpload);
 
         try {
             httpRequest.open("POST", "php/webcam_image_upload.php", true);
             httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            httpRequest.send(imgData);
+            httpRequest.send(data);
         } catch (e) {
-            document.getElementById("form-errors").innerHTML = "httpRequest.send error : " + e;
+            displayError("<p class=\"danger\">httpRequest.send error : " + e + "</p>");
         }
-
-
-
 
         function uploadProgress(event) {
             if (event.lengthComputable) {
-                let percent = event.loaded / event.total * 100;
+                var percent = event.loaded / event.total * 100;
                 document.getElementById("progress").setAttribute("value", percent.toFixed(1));
                 document.querySelector("progress[value]").setAttribute("data-content", percent.toFixed(1) + "%");
 
@@ -108,51 +122,57 @@ function activateUsersCamera() {
 
         function uploadStarted(event) {
             document.querySelector("#imageUploadForm .image-upload-fields").className += " hidden absolute";
-            let items = document.querySelector("#imageUploadForm").children;
-            for (let item of items) {
-                if (item.classList.contains("during-upload")){
+            var items = document.querySelector("#imageUploadForm").children;
+            for (var item of items) {
+                if (item.classList.contains("during-upload")) {
                     item.setAttribute("style", "display: inline-block;");
                 }
             }
         }
 
-        function uploadSuccess(event) {
+        function uploadSuccess() {
             httpRequest.onreadystatechange = function() {
                 if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-                    let res = httpRequest.responseText;
-                    document.getElementById("form-errors").innerHTML = res;
-
-                    // Display image in gallery
-                    var newImg = document.createElement("img");
-                    var gallery = document.getElementById("gallery");
-                    if (gallery && newImg) {
-                        newImg.setAttribute('src', data);
-                        newImg.setAttribute('alt', "ADD SOMETHING HERE");
-                        newImg.className = "gallery-img";
-                        gallery.appendChild(newImg);
+                    var response = JSON.parse(httpRequest.responseText);
+                    displayError(response.statusMsg);
+                    if (response.status === true) {
+                        // Display image in gallery
+                        var newImg = document.createElement("img");
+                        var gallery = document.getElementById("newGallery");
+                        if (gallery && newImg) {
+                            newImg.setAttribute('src', response.newFile);
+                            newImg.setAttribute('alt', response.imgTitle);
+                            newImg.setAttribute('title', response.imgTitle);
+                            newImg.className = "gallery-img";
+                            gallery.appendChild(newImg);
+                        }
                     }
-                }
-            };
-        }
-
-        function uploadFinished(event){
-            document.querySelector("#imageUploadForm .image-upload-fields.hidden").className = "image-upload-fields";
-            document.getElementById("progress").value = "0";
-            document.querySelector("progress[value]").setAttribute("data-content", "");
-            let items = document.querySelector("#imageUploadForm").children;
-            for (let item of items) {
-                if (item.classList.contains("during-upload")){
-                    item.removeAttribute("style");
-                }
+                };
             }
         }
 
+        function uploadFinished(event) {
+            document.querySelector("#imageUploadForm .image-upload-fields.hidden").className = "image-upload-fields";
+            document.getElementById("progress").value = "0";
+            document.querySelector("progress[value]").setAttribute("data-content", "");
+            var items = document.querySelector("#imageUploadForm").children;
+            for (var item of items) {
+                if (item.classList.contains("during-upload")) {
+                    item.removeAttribute("style");
+                }
+            }
+            var overlayForm = document.forms["overlayForm"];
+            overlayForm.elements['submit'].setAttribute('disabled', true);
+            overlayForm.elements['submit'].style.cursor = "auto";
+            overlayForm.elements['submit'].title = "First Select an overlay image. . .";
+        }
+
         function uploadAborted(event) {
-            console.log("User aborted file upload or the connection was lost. ERROR : " + event.message);
+            displayError("<p class=\"info\">User aborted file upload or the connection was lost. ERROR : " + event.message + "</p>");
         }
 
         function uploadError(event) {
-            console.log("An error has occured. ERROR : " + event.message);
+            displayError("<p class=\"danger\">An error has occured. ERROR : " + event.message + "</p>");
         }
 
         function cancelUpload() {
@@ -160,27 +180,5 @@ function activateUsersCamera() {
         }
 
     }
-
-
-
-/*
-//  Function that will upload the image taken with the webcam
-    function ajax_upload_webcam_image(data) {
-
-//        var imgData = JSON.stringify({data});
-//        ajax_request('php/image_upload.php', "image=".data);
-
-
-        var newImg = document.createElement("img");
-        var gallery = document.getElementById("gallery");
-        if (gallery && newImg) {
-            newImg.setAttribute('src', data);
-            newImg.setAttribute('alt', "ADD SOMETHING HERE");
-            newImg.className = "gallery-img";
-            gallery.appendChild(newImg);
-        }
-
-    }
-*/
 
 }

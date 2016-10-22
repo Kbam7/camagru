@@ -1,184 +1,351 @@
 /* css styles */
-
+/* --- TEMP STYLES - remove for production --- */
+#imageDisplay,
+#newGallery,
+.overlays {
+    /*    border: 1px solid #f00;*/
+}
+/* --- END TEMP STYLES - remove for production --- */
+/* --- Global Styling --- */
 body {
     background-color: #0462f9;
 }
 
 header {
-    margin: 10px 0 50px;
+    margin    : 10px 0 50px;
     text-align: center;
 }
 
-#imageDisplay {
-    text-align: center;
+.row.home {
+    clear      : both;
+    padding-top: 20px;
+    max-width  : 1366px;
+    margin     : auto;
 }
 
-#imageDisplay form {
-    max-width: 80%;
-    margin: auto;
+.overlays {
+    max-width             : 640px;
+    margin                : auto;
+    border-top-left-radius: 50px;
+    background-color      : rgba(255, 255, 255, 0.21);
+    -wekit-transition     : all 0.2s linear;
+    -moz-transition       : all 0.2s linear;
+    -ms-transition        : all 0.2s linear;
+    -o-transition         : all 0.2s linear;
+    transition            : all 0.2s linear;
+}
+
+.overlays:focus,
+.overlays:hover {
+    box-shadow: 0 0 5px #fff, inset 0 0 5px #fff;
+}
+/* --- Video Stream --- */
+/*.imageDisplay_inner form {}*/
+section#imageDisplay {
+    display  : flex;
+    flex-flow: column nowrap;
+}
+
+.imageDisplay_inner {
+    display    : flex;
+    flex-flow  : column nowrap;
+    align-items: center;
+    max-width  : 680px;
+    min-height : 480px;
+    margin     : 0 auto;
+    text-align : center;
+}
+
+.imageDisplay_inner div,
+.imageDisplay_inner form {
+    max-width  : 98%;
+    margin     : auto;
+    flex-grow  : 1;
+    flex-shrink: 1;
 }
 
 #videoStream {
-    width: 80%;
-    max-width: 1024px;
-    height: auto;
-    background-color: #666;
+    width           : 100%;
+    max-width       : 640px;
+    height          : auto;
+    padding         : 2px 5px;
+    background-color: #9bb8e5;
 }
 
 #canvas {
-    width: 80%;
-    max-width: 1024px;
-    height: auto;
+    display: none;
+}
+/* --- Gallery --- */
+#newGallery {
+    display    : flex;
+    flex-wrap  : wrap;
+    max-width  : 667px;
+    max-height : 603px;
+    overflow   : auto;
+    border-left: 2px solid #6397e9;
 }
 
-#gallery {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 667px;
-    max-height: 996px;
-    overflow: auto;
+#newGallery h3 {
+    width         : 95%;
+    max-height    : 37px;
+    margin        : 0 auto 10px;
+    padding-bottom: 2px;
+    border-bottom : 2px solid #6397e9;
+    text-align    : center;
 }
 
 .gallery-img {
-    width: 100%;
-    max-width: 256px;
-    height: auto;
-    max-height: 192px;
-    margin: 6px auto;
+    width     : 100%;
+    max-width : 226px;
+    height    : auto;
+    max-height: 162px;
+    margin    : 6px auto;
 }
 
 .during-upload {
     display: none;
 }
-
-
-/* ------[ ERRORS ]------ */
-
-#error-messages {
-    width: auto;
-    max-width: 700px;
-    margin: auto;
-    clear: both;
-}
-
-#error-messages p {
-    padding: 10px 60px;
-    text-align: center;
-    font-weight: 600;
-}
-
-
 /* ------[ FORMS ]------ */
+.create-account {
+    text-align: center;
+}
+
+.create-account * {
+    margin    : 3% auto;
+    text-align: center;
+}
+
+section.col-4.options,
+section.login-form {
+    margin: 20px auto 30px;
+}
+
+section.col-4.options .create-account,
+section.login-form form {
+    width    : 80%;
+    max-width: 380px;
+    margin   : auto;
+}
 
 input[type="submit"] {
     margin-top: 20px;
 }
-
-
 /* Labels */
-
-form label {
+label.input_label {
     opacity: 0;
-    color: #fff;
+    color  : #fff;
 }
 
+.overlay_images .form-input {
+    margin: 3px auto 0;
+}
 
+.overlay_images .form-input:first-child img {
+    border-top-left-radius: 50px;
+}
+
+form#overlayForm {
+    display  : flex;
+    flex-flow: row nowrap;
+}
+
+.overlays input[type="submit"] {
+    width : 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.overlay_images input[type=radio] {
+    display: none;
+}
+
+.overlay_images {
+    display   : flex;
+    flex-flow : row nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+label.overlay_label img {
+    position         : relative;
+    top              : 0;
+    width            : 100%;
+    max-width        : 180px;
+    min-width        : 100px;
+    border-top       : 3px solid #3883fa;
+    border-bottom    : 3px solid #3883fa;
+    border-left      : none;
+    border-right     : none;
+    box-shadow       : 0 0 0 0 #333;
+    -wekit-transition: all 0.4s ease;
+    -moz-transition  : all 0.4s ease;
+    -ms-transition   : all 0.4s ease;
+    -o-transition    : all 0.4s ease;
+    transition       : all 0.4s ease;
+}
+
+label.overlay_label img:focus,
+label.overlay_label img:hover {
+    border-top   : 3px solid rgba(255, 255, 255, 0.42);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.42);
+    box-shadow   : 0 16px 20px -15px #333;
+    border-radius: 10px;
+    top          : 2px;
+}
 /* Progress Bar */
-
 progress[value] {
-    width: 100%;
-    height: 20px;
+    width    : 100%;
+    min-width: 240px;
+    height   : 20px;
 }
 
 progress[value]::before {
     content: attr(data-content);
 }
+/* ------[ ERRORS ]------ */
+#error-messages {
+    width    : auto;
+    max-width: 700px;
+    margin   : auto;
+    clear    : both;
+}
 
-
+#error-messages p {
+    padding    : 10px 60px;
+    text-align : center;
+    font-weight: 600;
+}
 /* Place Holder CSS */
-
 ::-webkit-input-placeholder {
-    opacity: 0.5;
+    margin            : auto;
+    opacity           : 0.5;
     -webkit-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
+    transition        : all 0.75s ease-in-out;
 }
 
 :-moz-placeholder {
-    opacity: 0.5;
+    margin         : auto;
+    opacity        : 0.5;
     -moz-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
+    transition     : all 0.75s ease-in-out;
 }
 
 ::-moz-placeholder {
-    opacity: 0.5;
+    margin         : auto;
+    opacity        : 0.5;
     -moz-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
+    transition     : all 0.75s ease-in-out;
 }
 
 :-ms-input-placeholder {
-    opacity: 0.5;
+    margin        : auto;
+    opacity       : 0.5;
     -ms-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
+    transition    : all 0.75s ease-in-out;
 }
-
-
 /* Place Holder CSS for Hover */
-
 :hover::-webkit-input-placeholder {
-    opacity: 0.25;
+    opacity           : 0.25;
     -webkit-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
+    transition        : all 0.5s ease-in-out;
 }
 
 :hover:-moz-placeholder {
-    opacity: 0.25;
+    opacity        : 0.25;
     -moz-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
+    transition     : all 0.5s ease-in-out;
 }
 
 :hover::-moz-placeholder {
-    opacity: 0.25;
+    opacity        : 0.25;
     -moz-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
+    transition     : all 0.5s ease-in-out;
 }
 
 :hover:-ms-input-placeholder {
-    opacity: 0.25;
+    opacity       : 0.25;
     -ms-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
+    transition    : all 0.5s ease-in-out;
 }
-
-
 /* Place Holder CSS for Focus */
-
 :focus::-webkit-input-placeholder {
-    opacity: 0;
+    opacity           : 0;
     -webkit-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+    transition        : all 0.75s ease-in-out;
+    -webkit-transform : translate3d(0, -100%, 0);
+    transform         : translate3d(0, -100%, 0);
 }
 
 :focus:-moz-placeholder {
-    opacity: 0;
+    opacity        : 0;
     -moz-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
-    -moz-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+    transition     : all 0.75s ease-in-out;
+    -moz-transform : translate3d(0, -100%, 0);
+    transform      : translate3d(0, -100%, 0);
 }
 
 :focus::-moz-placeholder {
-    opacity: 0;
+    opacity        : 0;
     -moz-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
-    -moz-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+    transition     : all 0.75s ease-in-out;
+    -moz-transform : translate3d(0, -100%, 0);
+    transform      : translate3d(0, -100%, 0);
 }
 
 :focus:-ms-input-placeholder {
-    opacity: 0;
+    opacity       : 0;
     -ms-transition: all 0.75s ease-in-out;
-    transition: all 0.75s ease-in-out;
-    -ms-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+    transition    : all 0.75s ease-in-out;
+    -ms-transform : translate3d(0, -100%, 0);
+    transform     : translate3d(0, -100%, 0);
+}
+/* --- Footer --- */
+footer {
+    float           : left;
+    clear           : both;
+    margin          : 100px auto 0;
+    background-color: white;
+    text-align      : center;
+    width           : 100%;
+    height          : 40px;
+}
+
+footer p {
+    margin-top: 9px;
+    font-size : 12px;
+}
+/* --- @Media Events --- */
+@media screen and (min-width: 420px) {
+    .imageDisplay_inner div,
+    .imageDisplay_inner form {
+        max-width: 80%;
+        margin   : 5px auto 0;
+    }
+}
+@media screen and (min-width: 800px) {
+    .overlays {
+        max-width: 200px;
+        margin   : auto 0 auto 3%;
+    }
+
+    section#imageDisplay {
+        display  : flex;
+        flex-flow: row nowrap;
+    }
+
+    form#overlayForm {
+        display  : flex;
+        flex-flow: column nowrap;
+    }
+
+    .overlay_images {
+        flex-flow : column nowrap;
+        max-height: 570px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    #newGallery {
+        max-width: 280px;
+    }
 }
