@@ -26,20 +26,20 @@
             <form id="createUserForm" method="post" enctype="application/x-www-form-urlencoded">
                 <div class="col-6 gutter-right-10 form-input">
                     <label class="input_label" for="firstname">Firstname: <span class="require">*</span></label>
-                    <input type="text" name="firstname" id="fname" value="" placeholder="Firstname" autocomplete="true" required="true" />
+                    <input type="text" name="firstname" id="fname" value="" placeholder="Firstname" maxlength="32" autocomplete="true" required="true" />
                 </div>
                 <div class="col-6 gutter-left-10 form-input">
                     <label class="input_label" for="lastname">Lastname: <span class="require">*</span></label>
-                    <input type="text" name="lastname" id="lname" value="" placeholder="Lastname" autocomplete="true" required="true" />
+                    <input type="text" name="lastname" id="lname" value="" placeholder="Lastname" maxlength="32" autocomplete="true" required="true" />
                 </div>
 
                 <div class="col-6 gutter-right-10 form-input">
                     <label class="input_label" for="username">Username: <span class="require">*</span></label>
-                    <input type="text" name="username" id="uname" value="" placeholder="Username" autocomplete="true" required="true" />
+                    <input type="text" name="username" id="uname" value="" placeholder="Username" maxlength="24" autocomplete="true" required="true" />
                 </div>
                 <div class="col-6 gutter-left-10 form-input">
                     <label class="input_label" for="emailaddr">Email Address: <span class="require">*</span></label>
-                    <input type="email" name="emailaddr" id="email" value="" placeholder="Email Address" autocomplete="true" required="true" />
+                    <input type="email" name="emailaddr" id="email" value="" placeholder="Email Address" maxlength="64" autocomplete="true" required="true" />
                 </div>
 
                 <div class="col-6 gutter-right-10 form-input">

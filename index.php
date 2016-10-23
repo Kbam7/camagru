@@ -29,12 +29,14 @@
                 unset($_SESSION['errors']);
             ?>
         </div>
+        <?php else: ?>
+            <div id="error-messages"></div>
         <?php endif; ?>
         <section class="col-7 login-form">
-            <form method="post" action="php/login.php">
+            <form id="loginForm" method="post" action="php/login.php">
                 <div class="form-input">
                     <label class="input_label" for="login">Username:</label>
-                    <input type="text" name="login" id="user-login" placeholder="Username" title="Username" required="true" /> <!--  pattern="^[a-zA-Z]\B[a-zA-Z0-9]{4,18}[a-zA-Z0-9]\b$"   pattern="(?!.*[\.\-\_]{2,})^[a-zA-Z0-9\.\-\_]{3,24}$"   -->
+                    <input type="text" name="login" id="user-login" placeholder="Username" maxlength="24" title="Username" required="true" /> <!--  pattern="^[a-zA-Z]\B[a-zA-Z0-9]{4,18}[a-zA-Z0-9]\b$"   pattern="(?!.*[\.\-\_]{2,})^[a-zA-Z0-9\.\-\_]{3,24}$"   -->
                 </div>
                 <div class="form-input">
                     <label class="input_label" for="passwd">Password:</label>

@@ -26,7 +26,8 @@
             // Make user table
             $db_conn->exec('CREATE TABLE IF NOT EXISTS `users` (
         		`id` INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        		`active` TINYINT NOT NULL DEFAULT 0,
+        		`active` TINYINT(1) NOT NULL DEFAULT 0,
+                `hash` VARCHAR(32),
         		`firstname` VARCHAR(32) NOT NULL,
         		`lastname` VARCHAR(32) NOT NULL,
         		`username` VARCHAR(24) NOT NULL,

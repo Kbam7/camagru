@@ -22,6 +22,8 @@ if ($_POST['submit'] === '1' && $_POST['fname'] && $_POST['lname'] && $_POST['un
             $sql = $conn->prepare('INSERT INTO `users` (`firstname`, `lastname`, `username`, `email`, `password`) VALUES (:fname, :lname, :uname, :email, :passwd);');
             $sql->execute(['fname' => $fname, 'lname' => $lname, 'uname' => $uname, 'email' => $email, 'passwd' => $passwd]);
 
+            // send email to user
+
             $statusMsg .= '<p class="success">Yay! You have been sent a validation email, please check your email for the verification link.</p>';
             $response = array('status' => true, 'statusMsg' => $statusMsg);
         } else {

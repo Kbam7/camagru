@@ -43,38 +43,36 @@ window.onload = function() {
 
     /* --- NON-Global events --- */
 
-    // Submit event for new user form
-    var createUserForm = document.querySelector("#createUserForm");
-    if (createUserForm) {
-
-        // Define object
-        /*        function Formfield(name, val, type) {
-                    this.name = name;
-                    this.val = val;
-                    this.type = type;
-                }
-                var formFields = [];
-        */
-        var inputs = createUserForm.elements;
-
+    // Events for new user login
+    var loginForm = document.querySelector("#loginForm");
+    if (loginForm) {
+        // Get all input elements
+        var inputs = loginForm.elements;
+        // Add 'blur' event listener
         for (var i = 0; i < inputs.length; ++i) {
             var item = inputs[i];
-            debugger;
-            item.addEventListener('blur', function(e) {
-                //validateInput(item.name, item.value, item.type);
-                console.log(this.name + " is blurred");
-            });
-            //            formFields[i] = new Formfield(item.name, item.value, item.type);
+            if (item.type !== "submit") { // dont add for submit button
+                item.addEventListener('blur', function(e) {
+                    validate_input(this, this.value, this.type);
+                });
+            }
         };
-        /*
-                for (var j = 0; j < formFields.length; ++j) {
-                    console.log("NAME: " + formFields[j].name + " VAL: " + formFields[j]["val"] + " TYPE: " + formFields[j]["type"]);
-                }
-        */
+    }
 
-
-
-
+    // Events for new user form
+    var createUserForm = document.querySelector("#createUserForm");
+    if (createUserForm) {
+        // Get all input elements
+        var inputs = createUserForm.elements;
+        // Add 'blur' event listener
+        for (var i = 0; i < inputs.length; ++i) {
+            var item = inputs[i];
+            if (item.type !== "submit") { // dont add for submit button
+                item.addEventListener('blur', function(e) {
+                    validate_input(this, this.value, this.type);
+                });
+            }
+        };
         createUserForm.addEventListener('submit', function(e) {
             e.preventDefault();
             createUser(createUserForm);
@@ -92,8 +90,6 @@ window.onload = function() {
                 overlayForm.elements['submit'].disabled = false;
                 overlayForm.elements['submit'].style.cursor = "pointer";
                 overlayForm.elements['submit'].title = "Take the photo";
-
-                debugger;
 
                 // overlay preview div
                 if (document.querySelector('#videoStream')) {
@@ -223,34 +219,42 @@ function createUser(form) {
 }
 
 // Form validation code will come here.
-function validate_input(form) {
+function validate_input(input, value, type) {
+    var result = true;
 
-    if (form.Name.value == "") {
-        alert("Please provide your name!");
-        form.Name.focus();
-        callback
+    if (value === "" && input.required) {
+        displayError("<p class=\"info\">'" + input.name + "' cannot be empty.</p>");
         return false;
     }
-
-    if (form.EMail.value == "") {
-        alert("Please provide your Email!");
-        form.EMail.focus();
-        return false;
-    }
-
-    if (document.myForm.Zip.value == "" || isNaN(document.myForm.Zip.value) ||
-        document.myForm.Zip.value.length != 5) {
-        alert("Please provide a zip in the format #####.");
-        document.myForm.Zip.focus();
-        return false;
-    }
-
-    if (document.myForm.Country.value == "-1") {
-        alert("Please provide your country!");
-        return false;
+    if (type === "text") {
+        // validate text input for names
+        if (input.name === "firstname" || input.name === "lastname") {
+            result = /^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)$/.test(value);
+            if (result === false) {
+                displayError("<p class=\"warning\">'" + input.name + "' is invalid. Please try format is as follows: 'John Doe' or 'John-Doe'.<br />Names need to start with a CAPITAL letter.</p>");
+                return false;
+            }
+        } else if (input.name === "username") {
+            result = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,24}$/.test(value);
+            if (result === false) {
+                displayError("<p class=\"warning\">'" + input.name + "' is invalid. Please try format is as follows: 'john1' 'John_Doe' or 'John.Doe3'.<br />MAX: 24 Characters</p>");
+                return false;
+            }
+        }
+    } else if (type === "email") {
+        result = /^([\w\.]+)@([\w\.]+)\.(\w+)/.test(value);
+        if (result === false) {
+            displayError("<p class=\"warning\">'" + input.name + "' is invalid. Please try format is as follows: 'john@doe.com'</p>");
+            return false;
+        }
+    } else if (type === "password") {
+        result = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(value);
+        if (result === false) {
+            displayError("<p class=\"warning\">'" + input.name + "' is invalid. Password must contain at least 8 characters, and consist of atleast 1 uppercase letter, 1 lowercase letter, and 1 number. Can contain special characters.</p>");
+            return false;
+        }
     }
     return (true);
-
 }
 
 // Function for uploading users images
@@ -384,8 +388,6 @@ function ajax_user_upload_image(uploadStatus, uploadForm) {
                 item.removeAttribute("style");
             }
         }
-
-        debugger;
         document.getElementById("progress").value = "0";
         document.querySelector("progress[value]").setAttribute("data-content", "");
 
