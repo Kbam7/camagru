@@ -12,7 +12,10 @@
 
         if ($argc === 2 && $argv[1] == 'purge') {
             $db_conn->exec('DROP DATABASE IF EXISTS camagru;');
+            echo "\nThe database was DROPPED!\n";
         } else {
+
+            echo "\nCreating camagru database and adding tables if the do not already exist\n";
 
             // Create the database
             $db_conn->exec('CREATE DATABASE IF NOT EXISTS camagru;');
@@ -53,7 +56,7 @@
     		`date` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL);');
         }
     } catch (PDOException $e) {
-        $_SESSION['errors'] = array("<b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> ".dirname(__DIR__).'/log/errors.log'.'</p>');
+        echo "<b><u>Error Message :</u></b><br /> '.$e.' <br /><br /> <b><u>For error details, check :</u></b><br /> ".dirname(__DIR__).'/log/errors.log'.'</p>';
         error_log($e, 3, dirname(__DIR__).'/log/errors.log');
     }
     $db_conn = null;

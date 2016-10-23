@@ -14,7 +14,11 @@ if (isset($_SESSION['logged_on_user'])) {
             <a href="home.php" class="brand"><h1>Camagru - <small>Take a photo, have some fun!</small></h1></a>
             <ul class="menu pull-right">
               <li class="divider"></li>
-              <li class="logout-btn"><a href="php/logout.php" title="Logout of Account">LOGOUT</a></li>
+              <li class="logout-btn">
+                  <?php if (isset($_SESSION['logged_on_user'])): ?>
+                      <a href="php/logout.php" title="Logout of Account">LOGOUT</a>
+                  <?php endif; ?>
+              </li>
             </ul>
         </div>
 

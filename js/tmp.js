@@ -46,6 +46,35 @@ window.onload = function() {
     // Submit event for new user form
     var createUserForm = document.querySelector("#createUserForm");
     if (createUserForm) {
+
+        // Define object
+        /*        function Formfield(name, val, type) {
+                    this.name = name;
+                    this.val = val;
+                    this.type = type;
+                }
+                var formFields = [];
+        */
+        var inputs = createUserForm.elements;
+
+        for (var i = 0; i < inputs.length; ++i) {
+            var item = inputs[i];
+            debugger;
+            item.addEventListener('blur', function(e) {
+                //validateInput(item.name, item.value, item.type);
+                console.log(this.name + " is blurred");
+            });
+            //            formFields[i] = new Formfield(item.name, item.value, item.type);
+        };
+        /*
+                for (var j = 0; j < formFields.length; ++j) {
+                    console.log("NAME: " + formFields[j].name + " VAL: " + formFields[j]["val"] + " TYPE: " + formFields[j]["type"]);
+                }
+        */
+
+
+
+
         createUserForm.addEventListener('submit', function(e) {
             e.preventDefault();
             createUser(createUserForm);
@@ -147,7 +176,7 @@ window.onload = function() {
 // Add class to element
 function addClass(el, className) {
     if (!el.classList) {
-        el.classList.add(className);
+        el.className = className;
     } else if (!el.classList.contains(className)) {
         el.classList.add(className);
     }
