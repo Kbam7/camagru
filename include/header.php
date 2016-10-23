@@ -7,6 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="css/modulr.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <script type="text/javascript" src="js/tmp.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="js/camera.js"></script>
     ';

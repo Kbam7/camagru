@@ -47,7 +47,7 @@
                     <input type="password" name="password" id="passwd" value="" placeholder="Password" autocomplete="true" required="true" />
                 </div>
                 <div class="col-6 gutter-left-10 form-input">
-                    <label class="input_label" for="password">Confirm Password: <span class="require">*</span></label>
+                    <label class="input_label" for="password2">Confirm Password: <span class="require">*</span></label>
                     <input type="password" name="password2" id="passwd2" value="" placeholder="Confirm Password" autocomplete="true" required="true" />
                 </div>
                 <div class="col-6 gutter-left-10 form-input">

@@ -16,4 +16,13 @@ Stack trace:
 #1 {main}PDOException: invalid data source name in /home/kbam7/lampstack-7.0.11-2/apache2/htdocs/camagru/php/user_image_upload.php:78
 Stack trace:
 #0 /home/kbam7/lampstack-7.0.11-2/apache2/htdocs/camagru/php/user_image_upload.php(78): PDO->__construct(';dbname=camagru', NULL, NULL)
+#1 {main}exception 'PDOException' with message 'SQLSTATE[HY000] [1049] Unknown database 'camagru'' in /goinfre/kbamping/MAMP/apache2/htdocs/kbamping/camagru/php/create_acc.php:18
+Stack trace:
+#0 /goinfre/kbamping/MAMP/apache2/htdocs/kbamping/camagru/php/create_acc.php(18): PDO->__construct('mysql:host=127....', 'root', '123456')
+#1 {main}exception 'PDOException' with message 'SQLSTATE[HY000] [1049] Unknown database 'camagru'' in /goinfre/kbamping/MAMP/apache2/htdocs/kbamping/camagru/php/create_acc.php:18
+Stack trace:
+#0 /goinfre/kbamping/MAMP/apache2/htdocs/kbamping/camagru/php/create_acc.php(18): PDO->__construct('mysql:host=127....', 'root', '123456')
+#1 {main}exception 'PDOException' with message 'SQLSTATE[HY000] [1049] Unknown database 'camagru'' in /goinfre/kbamping/MAMP/apache2/htdocs/kbamping/camagru/php/create_acc.php:18
+Stack trace:
+#0 /goinfre/kbamping/MAMP/apache2/htdocs/kbamping/camagru/php/create_acc.php(18): PDO->__construct('mysql:host=127....', 'root', '123456')
 #1 {main}

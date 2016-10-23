@@ -11,7 +11,7 @@ function auth($login, $passwd)
         $dbname = 'camagru';
         $conn = new PDO("$DB_DSN;dbname=$dbname", $DB_USER, $DB_PASSWORD);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = $conn->prepare('SELECT `id`, `firstname` FROM `users` WHERE username=:login AND password=:passwd;');
+        $sql = $conn->prepare('SELECT `id`, `firstname` FROM `users` WHERE (username=:login OR email=:login) AND password=:passwd AND active=1;');
         $sql->execute(['login' => $login, 'passwd' => $passwd]);
 
         if ($sql->rowCount() > 0) {

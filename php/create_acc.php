@@ -19,10 +19,38 @@ if ($_POST['submit'] === '1' && $_POST['fname'] && $_POST['lname'] && $_POST['un
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         if (validNewUser($conn, $uname, $email) == true) {
-            $sql = $conn->prepare('INSERT INTO `users` (`firstname`, `lastname`, `username`, `email`, `password`) VALUES (:fname, :lname, :uname, :email, :passwd);');
-            $sql->execute(['fname' => $fname, 'lname' => $lname, 'uname' => $uname, 'email' => $email, 'passwd' => $passwd]);
+
+            $uniqueHash = md5(uniqid());
+
+            $sql = $conn->prepare('INSERT INTO `users` (`hash`, `firstname`, `lastname`, `username`, `email`, `password`) VALUES (:hash, :fname, :lname, :uname, :email, :passwd);');
+            $sql->execute(['hash' => $uniqueHash, 'fname' => $fname, 'lname' => $lname, 'uname' => $uname, 'email' => $email, 'passwd' => $passwd]);
 
             // send email to user
+            $subject = 'Signup | Verification'; // Give the email a subject
+            $message = "
+
+                Hey ".$fname."".$lname.",
+
+                Thanks for signing up!
+                Your account has been created, you can login with the following credentials after you have activated your account by pressing the url below.
+
+                ------------------------
+
+                Username:   ".$uname."
+                Email   :   ".$email."
+
+                ------------------------
+
+                Please click this link to activate your account:
+                http://localhost:8080/kbamping/camagru/verify.php?email=".$email."&hash=".$uniqueHash."
+
+            "; // Our message above including the link
+
+            $headers = 'From:noreply@camagru.co.za' . "\r\n"; // Set from headers
+    //        $headers .= 'Content-type: text/html' . "\r\n"; // Set from headers
+            mail($email, $subject, $message, $headers); // Send our email
+
+
 
             $statusMsg .= '<p class="success">Yay! You have been sent a validation email, please check your email for the verification link.</p>';
             $response = array('status' => true, 'statusMsg' => $statusMsg);

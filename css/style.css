@@ -128,7 +128,7 @@ section#imageDisplay {
     background-size: contain !important;
     z-index: 99999;
     margin: auto;
-    border: 1px solid #f00;
+    /*border: 1px solid #f00;*/
 }
 
 #videoStream, .user-upload-img img {
