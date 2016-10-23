@@ -142,7 +142,8 @@ function validate_input(form) {
         return false;
     }
 
-    if (document.myForm.Zip.value == "" || isNaN(document.myForm.Zip.value) ||
+    if (document.myForm.Zip.value == "" ||
+        isNaN(document.myForm.Zip.value) ||
         document.myForm.Zip.value.length != 5) {
         alert("Please provide a zip in the format #####.");
         document.myForm.Zip.focus();
@@ -183,88 +184,74 @@ function ajax_upload_image(uploadForm) {
     } catch (e) {
         displayError("<p class=\"info\">ajax send error : " + e);
     }
-}
 
 
 
 
-function uploadProgress(event) {
-    if (event.lengthComputable) {
-        var percent = event.loaded / event.total * 100;
-        document.getElementById("progress").setAttribute("value", percent.toFixed(1));
-        document.querySelector("progress[value]").setAttribute("data-content", percent.toFixed(1) + "%");
+    function uploadProgress(event) {
+        if (event.lengthComputable) {
+            var percent = event.loaded / event.total * 100;
+            document.getElementById("progress").setAttribute("value", percent.toFixed(1));
+            document.querySelector("progress[value]").setAttribute("data-content", percent.toFixed(1) + "%");
 
-    }
-}
-
-function uploadStarted(event) {
-    // display progress bar and cancel button
-    document.querySelector("#imageUploadForm .image-upload-fields").className += " hidden absolute";
-    var items = document.querySelector("#imageUploadForm").children;
-    for (var item of items) {
-        if (item.classList.contains("during-upload")) {
-            item.setAttribute("style", "display: inline-block;");
         }
     }
-    // display div for users upload, hide video stream
-    document.querySelector("#videoStream").className += " hidden absolute";
-    document.querySelector(".user-upload-img").setAttribute("style", "display: inline-block;");
-}
 
-function uploadSuccess(event) {
-    httpRequest.onreadystatechange = function() {
-        if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-            var response = JSON.parse(httpRequest.responseText);
-            displayError(response.statusMsg);
-            if (response.status === true) {
-                // Display the users uploaded image
-                displayUserUpload(response);
+    function uploadStarted(event) {
+        document.querySelector("#imageUploadForm .image-upload-fields").className += " hidden absolute";
+        var items = document.querySelector("#imageUploadForm").children;
+        for (var item of items) {
+            if (item.classList.contains("during-upload")) {
+                item.setAttribute("style", "display: inline-block;");
             }
-        };
-    };
-
-    function displayUserUpload(response) {
-        var newImg = document.createElement("img");
-        var userIamge = document.getElementById("userImage");
-        if (userIamge && newImg) {
-            newImg.setAttribute('src', response.newFile);
-            newImg.setAttribute('alt', response.imgTitle);
-            newImg.setAttribute('title', response.imgTitle);
-            newImg.className = "user-upload-img";
-            userIamge.appendChild(newImg);
-        };
-    };
-}
-
-function uploadFinished(event) {
-
-    var items = document.querySelector("#imageUploadForm").children;
-    for (var item of items) {
-        if (item.classList.contains("during-upload")) {
-            item.removeAttribute("style");
         }
     }
-    document.getElementById("progress").value = "0";
-    document.querySelector("progress[value]").setAttribute("data-content", "");
-    document.querySelector("#imageUploadForm .image-upload-fields.hidden").className = "image-upload-fields";
 
-    // remove div for users upload, display video stream
-    document.querySelector(".user-upload-img").removeAttribute("style");
-    removeClass(document.querySelector("#videoStream"), "hidden");
-    removeClass(document.querySelector("#videoStream"), "absolute");
+    function uploadSuccess(event) {
+        httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                var response = JSON.parse(httpRequest.responseText);
+                displayError(response.statusMsg);
+                if (response.status === true) {
+                    // Display image in gallery
+                    var newImg = document.createElement("img");
+                    var gallery = document.getElementById("newGallery");
+                    if (gallery && newImg) {
+                        newImg.setAttribute('src', response.newFile);
+                        newImg.setAttribute('alt', response.imgTitle);
+                        newImg.setAttribute('title', response.imgTitle);
+                        newImg.className = "gallery-img";
+                        gallery.appendChild(newImg);
+                    }
+                }
+            };
+        };
+    }
 
-}
+    function uploadFinished(event) {
+        document.querySelector("#imageUploadForm .image-upload-fields.hidden").className = "image-upload-fields";
+        document.getElementById("progress").value = "0";
+        document.querySelector("progress[value]").setAttribute("data-content", "");
+        var items = document.querySelector("#imageUploadForm").children;
+        for (var item of items) {
+            if (item.classList.contains("during-upload")) {
+                item.removeAttribute("style");
+            }
+        }
+    }
 
-function uploadAborted(event) {
-    displayError("<p class=\"warning\">User aborted file upload or the connection was lost. ERROR : " + event.message + "</p>");
-}
+    function uploadAborted(event) {
+        displayError("<p class=\"warning\">User aborted file upload or the connection was lost. ERROR : " + event.message + "</p>");
+    }
 
-function uploadError(event) {
-    displayError("<p class=\"danger\">An error has occured. ERROR : " + event.message + "</p>");
-}
+    function uploadError(event) {
+        displayError("<p class=\"danger\">An error has occured. ERROR : " + event.message + "</p>");
+    }
 
-function cancelUpload() {
-    httpRequest.abort();
+    function cancelUpload() {
+        httpRequest.abort();
+    }
+
 }
 
 // A lightweight function for ajax POST
@@ -318,7 +305,7 @@ function observeErrors(errorDiv) {
             var newNodes = mutation.addedNodes;
             //        console.log(newNodes);
             addClass_timeout = setTimeout(function() {
-                for (let i = 0; i < newNodes.length; ++i) {
+                for (var i = 0; i < newNodes.length; ++i) {
                     addClass(newNodes[i], "scale-out");
                     //    newNodes[i].className += " scale-out";
                 }

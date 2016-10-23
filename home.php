@@ -10,16 +10,28 @@ if (isset($_SESSION['logged_on_user'])) {
   </head>
   <body>
     <header>
-      <a class="btn border border-3 white rounded hover-text-blue text-22" href="php/logout.php" title="Logout of Account">LOGOUT</a>
-      <h1>Camagru - <small>Take a photo, have some fun!</small></h1>
+        <div class="navbar">
+            <a href="home.php" class="brand"><h1>Camagru - <small>Take a photo, have some fun!</small></h1></a>
+            <ul class="menu pull-right">
+              <li class="divider"></li>
+              <li class="logout-btn"><a href="php/logout.php" title="Logout of Account">LOGOUT</a></li>
+            </ul>
+        </div>
+
+     <!--  <a class="btn border border-3 white rounded hover-text-blue text-22" href="php/logout.php" title="Logout of Account">LOGOUT</a>
+      <h1>Camagru - <small>Take a photo, have some fun!</small></h1> -->
     </header>
 
     <div id="error-messages"></div>
+
     <div class="row home">
         <section class="col-12" id="imageDisplay">
             <aside class="col-2 overlays">
                 <form id="overlayForm">
                     <!-- ADD PHP HERE TO POPULATE OVERLAY LIST. Save overlay to DB and allow users to upload more overlays -->
+                    <div class="form-input">
+                        <input class="success" type="submit" name="submit" title="First Select an overlay image. . ." value="Take Photo" disabled="true"/>
+                    </div>
                     <div class="overlay_images">
                         <div class="form-input">
                             <label class="overlay_label" for="overlay_1"><img src="img/overlays/glasses.png" alt="Glasses" /></label>
@@ -42,36 +54,45 @@ if (isset($_SESSION['logged_on_user'])) {
                             <input type="radio" name="overlay" id="overlay_5" value="img/overlays/text/uhno.png" required="true" />
                         </div>
                     </div>
-                    <div class="form-input">
-                        <input class="success" type="submit" name="submit" title="First Select an overlay image. . ." value="Take Photo" disabled="true"/>
-                    </div>
 
                 </form> <!-- /#overlayForm -->
             </aside> <!-- /.overlays -->
             <div class="col-5 imageDisplay_inner">
-                <div class="user-upload-img">
-                    
+                <div class="col-12">
+                    <div class="user-upload-img"></div>
+
+                    <div class="overlayPreview"></div>
+
+                    <video autoplay="true" id="videoStream"></video>
+
+                    <canvas id="canvas"></canvas>
                 </div>
-                <video autoplay="true" id="videoStream">
+                <hr class="clearfix" />
+                <div class="col-12 imageUploadSection collapsed">
+                    <h3>Upload an Image</h3>
+                    <form id="imageUploadForm" method="post" enctype="multipart/form-data">
+                        <progress class="during-upload" id="progress" max="100" value="0">
+                        </progress>
 
-                </video>
-                <canvas id="canvas">
-                </canvas>
-                <div class="clearfix"></div>
-
-                <form id="imageUploadForm" method="post" enctype="multipart/form-data">
-                    <progress class="during-upload" id="progress" max="100" value="0">
-                    </progress>
-
-                    <div class="image-upload-fields">
-                        <p>Select image to upload:</p>
-                        <input type="file" name="userfile" id="file">
-                        <input type="submit" name="submit" value="Upload Image">
-                    </div>
-                    <button type="button" name="cancelUpload" id="cancelUploadBtn" class="during-upload btn icon l round danger">
-                        <i class="fa fa-ban" aria-hidden="true" title="Cancel Upload" ></i>
-                    </button>
-                </form> <!-- /#imageUploadForm -->
+                        <div class="image-upload-fields">
+                            <p>Select image to upload:</p>
+                            <div class="form-input">
+                                <input type="file" name="userfile" id="file" required="true" />
+                            </div>
+                            <div class="form-input">
+                                <label class="input_label" for="userUpload_ImgTitle">Image Title:</label>
+                                <input type="text" name="imgTitle" id="userUpload_ImgTitle" placeholder="Image Title:" required="true" />
+                            </div>
+                            <div class="form-input">
+                                <input class="btn border border-3 white rounded hover-text-blue text-22" type="submit" name="submit" value="Upload Image" />
+                            </div>
+                        </div>
+                        <button type="button" name="cancelUpload" id="cancelUploadBtn" class="during-upload btn icon l round danger">
+                            <i class="fa fa-ban" aria-hidden="true" title="Cancel Upload" ></i>
+                        </button>
+                    </form> <!-- /#imageUploadForm -->
+                </div>
+                <hr class="clearfix" />
             </div> <!-- /.imageDisplay_inner -->
             <aside id="newGallery" class="col-5">
                 <h3>Your Uploads</h3>
